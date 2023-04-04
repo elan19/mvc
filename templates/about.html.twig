@@ -1,0 +1,20 @@
+{% extends "base.html.twig" %}
+
+{% block title %}About{% endblock %}
+
+{% block body %}
+    <h1>About</h1>
+    <div class="left">
+        <h3>DV1608 V23 lp4 Objektorienterade webbteknologier</h3>
+        <p>
+            Objektorienterade webbteknologier eller (mvc) handlar om med att programmera med
+            kända webbramverk, enhetstestning, kodkvalitet och databaskopplingar med objekt relational mapping (ORM).
+        </p>
+        <img class="glider" src="{{ asset('img/about.jpg') }}" alt="Bild på dator, surfplatta och en mobil">
+    </div>
+    <div class="right">
+        <h3>Github repos</h3>
+        <p><a href="https://github.com/dbwebb-se/mvc">Kursrepo</a></p>
+        <p><a href="https://github.com/elan19/mvc">Elan19 - repo</a></p>
+    </div>
+{% endblock %}

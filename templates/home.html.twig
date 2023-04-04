@@ -1,0 +1,15 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Home{% endblock %}
+
+{% block body %}
+    <h1>Home</h1>
+    <p>
+        Mitt namn är Elias Andersson och jag är 22 år gammal. Jag går kurspaket webbutveckling på BTH och bor i en lägenhet i Karlskrona. Ursprungligen 
+        är jag från ett litet samhälle som heter Gullringen. Det ligger ungefär 2 mil norr om Vimmerby i Småland.
+    </p>
+    <p>
+        På min fritid brukar jag spela datorspel samt kolla på e-sport, serier eller filmer.
+    </p>
+    <img class="picture-of-me" src="{{ asset('img/jag.jpg') }}" alt="Bild på mig">
+{% endblock %}

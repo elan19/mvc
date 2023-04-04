@@ -1,0 +1,123 @@
+body {
+    margin: 0 auto;
+    max-width: 1280px;
+    width: 80%;
+    background-color: lightgray;
+}
+
+body p {
+    font-size: 1rem;
+}
+
+h1 {
+    border-bottom: 4px double #ccc;
+    text-align: center;
+}
+
+img {
+    width: 100%;
+}
+
+.site-header {
+    height: 300px;
+    text-align: center;
+    font-size: 2em;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav {
+    height: 50px;
+    text-align: center;
+}
+
+ul li {
+    margin: 0;
+    padding: 0;
+    line-height: 50px;
+    display: inline;
+}
+
+a {
+    text-decoration: none;
+    margin: 0;
+    padding: 0;
+    color: #4E4D1D;
+}
+
+a:hover {
+    color: #7C8B92;
+    text-decoration: underline;
+}
+
+.glider {
+    width: 500px;
+    height: 300px;
+    border: 1px solid black;
+    box-shadow: 5px 5px #888;
+}
+
+.picture-of-me {
+    width: 20%;
+    max-width: 300px;
+    margin-left: 40%;
+}
+
+.left {
+    width: 75%;
+    min-height: 500px;
+    margin: 0;
+    padding: 0;
+    float: left;
+    text-align: center;
+    border-right: 3px solid #ccc;
+}
+
+.left p {
+    margin-right: 50px;
+}
+
+.right {
+    width: 24%;
+    min-height: 500px;
+    margin: 0;
+    padding: 0;
+    float: right;
+    text-align: center;
+}
+
+.report-small {
+    width: 10%;
+}
+
+.sticky {
+    position: sticky;
+    top: 0;
+}
+
+.report-big {
+    width: 89%;
+}
+
+.center {
+    text-align: center;
+}
+
+h3 {
+    text-decoration: underline;
+}
+
+.number-pic {
+    width: 440px;
+    height: 640px;
+}
+
+footer {
+    text-align: center;
+    border-top: 3px solid #ccc;
+    clear: left;
+}

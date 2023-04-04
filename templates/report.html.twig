@@ -1,0 +1,41 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Report{% endblock %}
+
+{% block body %}
+    <h1>Report</h1>
+    <div class="left report-big">
+        <h3 id="kmom01">Kmom01</h3>
+        <p>
+            Sedan tidigare har jag jobbat en del med objektorientad programmering inom C++ och python men aldrig gjort något inom PHP så kommer bli interssant.
+            Alltid roligt att lära sig nya områden och förhoppningsvis kunna ha använding av det jag lärt mig innan. Samt så blir det intressant att 
+            använda sig av Json.
+            En klass är en struktur som kodaren skapar med hjälp av medlemsvariabler och metoder och kan ses som en mall. 
+            Sedan kan man skapa ett eller flera objekt av den klassen och använda dem i sitt program.
+        </p>
+        <p>
+            Hittills tycker jag det verkar relativt lätt att följa med vad varje grej i kodbasen gör. Vi har våra olika Controllers som t.ex. Json och Twig
+            controllerna. Twig controllern jobbar med själva "sidan" och returnerar till twig sidorna eller html sidorna som har en uppbyggnad för att
+            användaren ska kunna se en "livad" sida med länkar, bilder, text med mera. Json controllern däremot returnerar bara till en sida som visar Json
+            text och har då ingen "livad" sida runt omkring sig. Däremot tycker jag det är lite svårt att veta vad allting i Controller filerna gör
+            och hur de fungerar. Men det lär jag mig nog mer allt eftersom man jobbar med det. 
+        </p>
+        <p>
+            Under detta kmom började jag lära mig om Json, då det är helt nytt för mig. Jag hoppas vi kommer använda oss mer om det då jag inte kan
+            mycket om det området.
+        </p>
+        <h3 id="kmom02">Kmom02</h3>
+        <p></p>
+        <h3 id="kmom03">Kmom03</h3>
+        <p></p>
+        <h3 id="kmom04">Kmom04</h3>
+        <p></p>
+    </div>
+    <div class="right report-small sticky">
+        <p><a href="#top">Top</a></p>
+        <p><a href="#kmom01">Kmom01</a></p>
+        <p><a href="#kmom02">Kmom02</a></p>
+        <p><a href="#kmom03">Kmom03</a></p>
+        <p><a href="#kmom04">Kmom04</a></p>
+    </div>
+{% endblock %}
