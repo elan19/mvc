@@ -1,0 +1,15 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Card Game{% endblock %}
+
+{% block body %}
+<h1>Card game - draw card</h1>
+
+<p>{{ card.getSymbol() }}</p>
+<p>Cards left in Deck: {{ deck.cardsLeft() }}</p>
+
+{% if deck.cardsLeft() == 0 %}
+    <p>No cards left, return to <a href="{{ path('card_start') }}">Card Game</a> to get a new pack of card.</p>
+{% endif %}
+
+{% endblock %}

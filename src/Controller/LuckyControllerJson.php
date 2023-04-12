@@ -41,7 +41,7 @@ class LuckyControllerJson
         $quotes = [
                 '0' => "Just have a little faith.",
                 '1' => "I demand a trial by combat!",
-                '2' => "If I die, turn my tweets in to a book.", 
+                '2' => "If I die, turn my tweets in to a book.",
                 '3' => "Bazinga.",
                 '4' => "I'm Pickle Rick.",
         ];
