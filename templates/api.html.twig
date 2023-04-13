@@ -1,0 +1,12 @@
+{% extends "base.html.twig" %}
+
+{% block title %}About{% endblock %}
+
+{% block body %}
+<h1>Api - Home</h1>
+
+<p><a href="{{ path('quotes') }}">Quotes</a></p>
+<p><a href="{{ path('api_deck') }}">Deck</a></p>
+<p><a href="{{ path('api_shuffle') }}">Shuffle</a></p>
+
+{% endblock %}

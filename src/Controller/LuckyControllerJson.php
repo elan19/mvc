@@ -35,7 +35,7 @@ class LuckyControllerJson
         return $response;
     }
 
-    #[Route("/api/quote")]
+    #[Route("/api/quote", name:"quotes")]
     public function jsonQuote(): Response
     {
         $quotes = [

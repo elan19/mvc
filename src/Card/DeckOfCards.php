@@ -6,7 +6,7 @@ class DeckOfCards
 {
     private $cards;
 
-    public function __construct($jokers = false)
+    public function __construct()
     {
         $this->cards = [];
 
