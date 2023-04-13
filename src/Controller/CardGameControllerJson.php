@@ -101,4 +101,41 @@ class CardGameControllerJson
         );
         return $response;
     }
+
+    #[Route("/api/deck/draw/{num<\d+>}", name:"api_draws", methods: ['POST'])]
+    public function jsonDraws(SessionInterface $session, int $num): Response
+    {
+        if ($session->has("deck")) {
+            $deck = $session->get("deck");
+        } else {
+            $deck = new DeckOfCards();
+            $deck->shuffle();
+            $session->set("deck", $deck);
+        }
+        if ($num > $deck->cardsLeft()) {
+            throw new \Exception("Can not show more cards than exists in the deck!");
+        }
+
+        $cards = [];
+        for ($i = 0; $i < $num; $i++) {
+            $cards[$i] = $deck->drawCard();
+        }
+
+        $cardSymbol = array();
+
+        foreach ($cards as $card) {
+            array_push($cardSymbol, $card->getSymbol());
+        }
+
+        $data = [
+            'cards' => $cardSymbol,
+            'cards-left' => $deck->cardsLeft()
+        ];
+
+        $response = new JsonResponse($data);
+        $response->setEncodingOptions(
+            $response->getEncodingOptions() | JSON_PRETTY_PRINT
+        );
+        return $response;
+    }
 }
