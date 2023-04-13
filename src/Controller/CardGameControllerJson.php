@@ -48,13 +48,10 @@ class CardGameControllerJson
     #[Route("/api/deck/shuffle", name:"api_shuffle", methods: ['POST'])]
     public function jsonShuffle(SessionInterface $session): Response
     {
-        if ($session->has("deck")) {
-            $deck = $session->get("deck");
-        } else {
-            $deck = new DeckOfCards();
-            $session->set("deck", $deck);
-        }
+        $deck = new DeckOfCards();
         $deck->shuffle();
+        $cards = $deck->getCards();
+        $session->set("deck", $deck);
         $cards = $deck->getCards();
 
         $cardSymbol = array();
@@ -65,6 +62,37 @@ class CardGameControllerJson
 
         $data = [
             'cards' => $cardSymbol,
+        ];
+
+        $response = new JsonResponse($data);
+        $response->setEncodingOptions(
+            $response->getEncodingOptions() | JSON_PRETTY_PRINT
+        );
+        return $response;
+    }
+
+    #[Route("/api/deck/draw", name:"api_draw", methods: ['POST'])]
+    public function jsonDraw(SessionInterface $session): Response
+    {
+        if ($session->has("deck")) {
+            $deck = $session->get("deck");
+        } else {
+            $deck = new DeckOfCards();
+            $deck->shuffle();
+            $session->set("deck", $deck);
+        }
+        if ($deck->cardsLeft() !== 0) {
+            $card = $deck->drawCard();
+            $session->set("lastCard", $card);
+        } else {
+            $card = $session->get("lastCard");
+        }
+
+        $cardSymbol = $card->getSymbol();
+
+        $data = [
+            'cards' => $cardSymbol,
+            'cards-left' => $deck->cardsLeft()
         ];
 
         $response = new JsonResponse($data);

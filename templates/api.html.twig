@@ -5,8 +5,21 @@
 {% block body %}
 <h1>Api - Home</h1>
 
-<p><a href="{{ path('quotes') }}">Quotes</a></p>
-<p><a href="{{ path('api_deck') }}">Deck</a></p>
-<p><a href="{{ path('api_shuffle') }}">Shuffle</a></p>
+<p><a href="{{ path('quotes') }}">Quotes</a> - Visar upp dagens Quote</p>
+<p><a href="{{ path('api_deck') }}">Deck</a> - Visar upp hela kortleken, sorterad</p>
+
+<form method="post" action="">
+    <p>
+        <input type="submit" name="shuffle" value="Shuffle"
+            onClick="this.form.action='{{ path('api_shuffle') }}';">
+        
+        <input type="submit" name="draw" value="Draw 1"
+            onClick="this.form.action='{{ path('api_draw') }}';"
+        >
+        <input type="submit" name="draws" value="Draw 5"
+            onClick="this.form.action='{{ path('api_draws', {'num':5}) }}';"
+        >
+    </p>
+</form>
 
 {% endblock %}
