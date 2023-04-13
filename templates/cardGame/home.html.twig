@@ -5,12 +5,20 @@
 {% block body %}
 <h1>Card game - Home</h1>
 
-<p><a href="{{ path('card_deck') }}">Card Deck</a></p>
-<p><a href="{{ path('shuffle_deck') }}">Shuffle Deck</a></p>
+<p><a href="{{ path('card_deck') }}">Sort Deck and show it</a></p>
+<p><a href="{{ path('shuffle_deck') }}">Shuffle Deck - get a new deck</a></p>
 <p><a href="{{ path('draw_card') }}">Draw a Card</a></p>
 <p><a href="{{ path('draw_cards', {num: 5}) }}">Draw 5 cards</a></p>
 
 <h3 class="center">UML-diagram</h3>
 <img class="uml" src="{{ asset('img/uml.png') }}" alt="uml-bild">
+
+<p>
+    Card har två variabler där ena är vilket nummer kortet har och andra är vilken svit det är. CardGraphic ärver från Card och utnyttjar en funktion
+    som kan skriva ut vilken symbol och nummer det specifika kortet har.
+    DeckOfCard har komposition till CardGraphic samt jobbar med CardHand. Den största klassen är DeckOfCards som jobbar med de andra och använder sig
+    av dem för att visa upp saker. Ett exempel på funktion som DeckOfCards har är sort som sorterar efter färg och värde. Ett annat är shuffle som
+    'shufflar' runt alla kort i kortleken.
+</p>
 
 {% endblock %}

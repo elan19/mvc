@@ -14,4 +14,9 @@
     <p>No cards left, return to <a href="{{ path('card_start') }}">homepage</a> to get a new pack of card.</p>
 {% endif %}
 
+<p><a href="{{ path('card_deck') }}">Sort Deck and show it</a></p>
+<p><a href="{{ path('shuffle_deck') }}">Shuffle Deck - get a new deck</a></p>
+<p><a href="{{ path('draw_card') }}">Draw a card</a></p>
+<p><a href="{{ path('draw_cards', {num: 5}) }}">Draw another 5 cards</a></p>
+
 {% endblock %}
