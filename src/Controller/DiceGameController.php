@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Dice\Dice;
 use App\Dice\DiceGraphic;
 use App\Dice\DiceHand;
+use Exception;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -37,7 +38,7 @@ class DiceGameController extends AbstractController
     public function testRollDices(int $num): Response
     {
         if ($num > 99) {
-            throw new \Exception("Can not roll more than 99 dices!");
+            throw new Exception("Can not roll more than 99 dices!");
         }
 
         $diceRoll = [];
@@ -60,14 +61,15 @@ class DiceGameController extends AbstractController
     public function testDiceHand(int $num): Response
     {
         if ($num > 99) {
-            throw new \Exception("Can not roll more than 99 dices!");
+            throw new Exception("Can not roll more than 99 dices!");
         }
 
         $hand = new DiceHand();
         for ($i = 1; $i <= $num; $i++) {
             if ($i % 2 === 1) {
                 $hand->add(new DiceGraphic());
-            } else {
+            } 
+            if ($i % 2 === 0) {
                 $hand->add(new Dice());
             }
         }
@@ -114,13 +116,15 @@ class DiceGameController extends AbstractController
         SessionInterface $session
     ): Response {
         $dicehand = $session->get("pig_dicehand");
-
-        $data = [
-            "pigDices" => $session->get("pig_dices"),
-            "pigRound" => $session->get("pig_round"),
-            "pigTotal" => $session->get("pig_total"),
-            "diceValues" => $dicehand->getString()
-        ];
+        $data = [];
+        if ($dicehand instanceof DiceHand) {
+            $data = [
+                "pigDices" => $session->get("pig_dices"),
+                "pigRound" => $session->get("pig_round"),
+                "pigTotal" => $session->get("pig_total"),
+                "diceValues" => $dicehand->getString()
+            ];
+        }
 
         return $this->render('pig/play.html.twig', $data);
     }
@@ -130,25 +134,29 @@ class DiceGameController extends AbstractController
         SessionInterface $session
     ): Response {
         $hand = $session->get("pig_dicehand");
-        $hand->roll();
+        if ($hand instanceof DiceHand) {
+            $hand->roll();
+        }
 
         $roundTotal = $session->get("pig_round");
         $round = 0;
-        $values = $hand->getValues();
-        foreach ($values as $value) {
-            if ($value === 1) {
-                $round = 0;
-                $roundTotal = 0;
-                $this->addFlash(
-                    'warning',
-                    'You got a 1 and you lost the round points!'
-                );
-                break;
+        if ($hand instanceof DiceHand) {
+            $values = $hand->getValues();
+            foreach ($values as $value) {
+                if ($value === 1) {
+                    $round = 0;
+                    $roundTotal = 0;
+                    $this->addFlash(
+                        'warning',
+                        'You got a 1 and you lost the round points!'
+                    );
+                    break;
+                }
+                $round += $value;
             }
-            $round += $value;
+            $session->set("pig_round", $roundTotal + $round);
         }
 
-        $session->set("pig_round", $roundTotal + $round);
 
         return $this->redirectToRoute('pig_play');
     }

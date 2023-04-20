@@ -4,7 +4,10 @@ namespace App\Card;
 
 class DeckOfCards
 {
-    private $cards;
+    /**
+    * @var CardGraphic[]
+    */
+    private array $cards;
 
     public function __construct()
     {
@@ -21,22 +24,24 @@ class DeckOfCards
         }
     }
 
-    public function shuffle()
+    public function shuffle(): void
     {
         shuffle($this->cards);
     }
 
-    public function deal($numCards)
+    public function deal(int $numCards): CardHand
     {
         $hand = new CardHand();
         for ($i = 0; $i < $numCards; $i++) {
             $card = array_shift($this->cards);
-            $hand->addCard($card);
+            if ($card !== null) {
+                $hand->addCard($card);
+            }
         }
         return $hand;
     }
 
-    public function sort()
+    public function sort(): void
     {
         $suitsOrder = ['H', 'D', 'C', 'S'];
 
@@ -58,17 +63,20 @@ class DeckOfCards
         $this->cards = $sortedDeck;
     }
 
-    public function getCards()
+    /**
+    * @return CardGraphic[]
+    */
+    public function getCards(): array
     {
         return $this->cards;
     }
 
-    public function cardsLeft()
+    public function cardsLeft(): int
     {
         return count($this->cards);
     }
 
-    public function drawCard()
+    public function drawCard(): ?CardGraphic
     {
         if(empty($this->cards)) {
             return null;

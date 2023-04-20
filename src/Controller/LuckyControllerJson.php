@@ -56,13 +56,13 @@ class LuckyControllerJson
 
         $number = random_int(0, count($quotes)-1);
 
-        $random_quote = $quotes[$number];
-        $random_source = $sources[$number];
+        $randomQuote = $quotes[$number];
+        $randomSource = $sources[$number];
         $date = date('Y-m-d - H:i:s');
 
         $data = [
-            'quote' => $random_quote,
-            'source' => $random_source,
+            'quote' => $randomQuote,
+            'source' => $randomSource,
             'date' => $date,
         ];
 

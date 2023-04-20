@@ -4,12 +4,12 @@ namespace App\Card;
 
 class CardGraphic extends Card
 {
-    public function __construct($rank, $suit)
+    public function __construct(string $rank, string $suit)
     {
         parent::__construct($rank, $suit);
     }
 
-    public function getSymbol()
+    public function getSymbol(): ?string
     {
         // Använd utf-8-tecken för att representera kortet
         $suits = [
