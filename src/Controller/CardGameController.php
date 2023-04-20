@@ -98,4 +98,22 @@ class CardGameController extends AbstractController
         }
         return $this->render('cardGame/draw_many.html.twig', ['deck' => $deck, 'cards' => $cards,]);
     }
+
+    #[Route("/game", name: "game_home")]
+    public function game(): Response
+    {
+        //$deck = new DeckOfCards();
+        //$deck->shuffle();
+        //$session->set("deck", $deck);
+        return $this->render('cardGame/game_home.html.twig');
+    }
+
+    #[Route("/game/blackjack", name: "game_twenty_one")]
+    public function blackjack(SessionInterface $session): Response
+    {
+        //$deck = new DeckOfCards();
+        //$deck->shuffle();
+        //$session->set("deck", $deck);
+        return $this->render('cardGame/twenty_one.html.twig');
+    }
 }

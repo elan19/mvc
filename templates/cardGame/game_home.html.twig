@@ -1,0 +1,41 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Card Game{% endblock %}
+
+{% block body %}
+<h1>Card game - 21</h1>
+
+<h3 class="center">Fakta</h3>
+
+<p>
+    Tjugoett är ett kortspel som är den svenska motsvarigheten till det internationellt spridda kortspelet Black Jack. 
+    De viktigaste skillnaderna mellan dessa två spel är dels kortens värde, 
+    dels att bankiren i tjugoett spelar mot en spelare i taget och inte som i Black Jack mot alla på en gång.
+</p>
+<p>
+    Spelets idé är att med två eller flera kort försöka uppnå det sammanlagda värdet 21, eller komma så nära som möjligt utan att överskrida 21. 
+    Essen är värda valfritt 1 eller 14 (på denna sida: 1), kungarna 13, damerna 12, knektarna 11. Nummerkorten har samma värden som valören. 
+</p>
+
+<p>
+    Om summan av korten är 21 vinner spelaren från banken ett belopp lika stort som insatsen. 
+    Är summan större än 21 har spelaren ”spruckit” eller ”blivit tjock” och förlorar sin insats till banken. 
+    Om summan är under 21 kan spelaren antingen förklara sig nöjd eller begära ytterligare kort för att komma närmare 21, men då också riskera att spricka.
+
+    Om spelaren förklarat sig nöjd, ska bankiren straffa spelaren, det vill säga spela ut egna kort från leken, 
+    ett i taget med framsidan uppåt. Spricker bankiren, vinner spelaren lika mycket som sin insats. 
+    När bankiren förklarat sig nöjd, visar spelaren sina kort. Den som har högst vinner. 
+    Har båda lika är det bankiren som vinner, likaså om bankiren fått 21. 
+</p>
+
+<h3 class="center">Regler</h3>
+<p># Spelaren tar ett kort. Kortet visas.</p>
+<p># Spelaren kan bestämma att stanna eller ta ytterligare ett kort. Om spelaren får över 21 vinner banken.</p>
+<p># Om summan av korten är 21 vinner spelaren.</p>
+<p>
+    # Om summan är under 21 kan spelaren antingen förklara sig nöjd eller begära ytterligare kort för att komma närmare 21, 
+    men då också riskera att spricka.
+</p>
+
+<a href="{{ path('game_twenty_one') }}">Starta spel</a>
+{% endblock %}

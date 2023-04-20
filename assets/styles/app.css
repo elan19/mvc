@@ -30,6 +30,10 @@ ul {
     padding: 0;
 }
 
+.rules {
+    list-style-type: circle;
+}
+
 nav {
     height: 50px;
     text-align: center;
@@ -149,8 +153,4 @@ footer {
 .uml {
     width: 40%;
     margin-left: 30%;
-}
-
-.uml-text {
-    text-align: center;
 }
