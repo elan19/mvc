@@ -20,7 +20,7 @@ class CardGameControllerJson
     #[Route("/api/deck", name: "api_deck", methods: ['GET'])]
     public function jsonDeck(SessionInterface $session): Response
     {
-        if ($session->has("deck") == FALSE) {
+        if ($session->has("deck") == false) {
             $deck = new DeckOfCards();
             $session->set("deck", $deck);
         }
@@ -77,7 +77,7 @@ class CardGameControllerJson
     #[Route("/api/deck/draw", name:"api_draw", methods: ['POST'])]
     public function jsonDraw(SessionInterface $session): Response
     {
-        if ($session->has("deck") == FALSE) {
+        if ($session->has("deck") == false) {
             $deck = new DeckOfCards();
             $deck->shuffle();
             $session->set("deck", $deck);
@@ -90,16 +90,16 @@ class CardGameControllerJson
                 $card = $deck->drawCard();
                 $session->set("lastCard", $card);
             }
-            if ($deck->cardsLeft() > 0){
+            if ($deck->cardsLeft() > 0) {
                 $card = $session->get("lastCard");
                 if($card instanceof CardGraphic) {
                     $cardSymbol = $card->getSymbol();
-    
+
                     $data = [
                         'cards' => $cardSymbol,
                         'cards-left' => $deck->cardsLeft()
                     ];
-    
+
                     $response = new JsonResponse($data);
                     $response->setEncodingOptions(
                         $response->getEncodingOptions() | JSON_PRETTY_PRINT
@@ -122,7 +122,7 @@ class CardGameControllerJson
     #[Route("/api/deck/draw/{num<\d+>}", name:"api_draws", methods: ['POST'])]
     public function jsonDraws(SessionInterface $session, int $num): Response
     {
-        if ($session->has("deck") == FALSE) {
+        if ($session->has("deck") == false) {
             $deck = new DeckOfCards();
             $deck->shuffle();
             $session->set("deck", $deck);

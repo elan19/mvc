@@ -5,5 +5,20 @@
 {% block body %}
 <h1>Start - 21</h1>
 
+<h2>Player: </h2>
+<p>Your total points is: {{ player.getHandValue() }}</p>
+{% for card in player.getCards() %}
+    <p>Card drawn: {{ card.getSymbol() }}</p>
+{% endfor %}
 
+<h2>Dealer: </h2>
+<p>Dealer total points is: {{ dealer.getHandValue() }}</p>
+{% for card in dealer.getCards() %}
+    <p>Card drawn: {{ card.getSymbol() }}</p>
+{% endfor %}
+
+<p><a href="{{ path('game_twenty_one_stay') }}">Stay</a></p>
+<p><a href="{{ path('game_twenty_one_draw') }}">Draw card</a></p>
+<p><a href="{{ path('game_twenty_one') }}">Restart match</a></p>
+<p><a href="{{ path('game_home') }}">Return to start</a></p>
 {% endblock %}

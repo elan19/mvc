@@ -2,6 +2,8 @@
 
 namespace App\Card;
 
+use Exception;
+
 class DeckOfCards
 {
     /**
@@ -76,10 +78,10 @@ class DeckOfCards
         return count($this->cards);
     }
 
-    public function drawCard(): ?CardGraphic
+    public function drawCard(): CardGraphic
     {
         if(empty($this->cards)) {
-            return null;
+            throw new Exception('Empty deck.');
         }
 
         return array_shift($this->cards);
