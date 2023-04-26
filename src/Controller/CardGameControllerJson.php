@@ -164,4 +164,50 @@ class CardGameControllerJson
         );
         return $response;
     }
+
+    #[Route("/api/game", name: "api_blackjack")]
+    public function jsonGame(SessionInterface $session): Response
+    {
+        if ($session->has("playerhand") && $session->has("dealerhand")) {
+            $playerHand = $session->get("playerhand");
+            $dealerHand = $session->get("dealerhand");
+
+            if ($playerHand instanceof CardHand && $dealerHand instanceof CardHand) {
+                $cardsPlayer = $playerHand->getCards();
+                $cardsDealer = $dealerHand->getCards();
+                $cardsSymbolPlayer = array();
+                $cardsSymbolDealer = array();
+
+                foreach ($cardsPlayer as $card) {
+                    array_push($cardsSymbolPlayer, $card->getSymbol());
+                }
+
+                foreach ($cardsDealer as $card) {
+                    array_push($cardsSymbolDealer, $card->getSymbol());
+                }
+
+                $data = [
+                    'playerpoints' => $playerHand->getHandValue(),
+                    'playerhand' => $cardsSymbolPlayer,
+                    'dealerpoints' => $dealerHand->getHandValue(),
+                    'dealerhand' => $cardsSymbolDealer
+                ];
+                $response = new JsonResponse($data);
+                $response->setEncodingOptions(
+                    $response->getEncodingOptions() | JSON_PRETTY_PRINT
+                );
+                return $response;
+            }
+        }
+        $data = [
+            'player' => "No player active.",
+            'dealer' => "No dealer active."
+        ];
+
+        $response = new JsonResponse($data);
+        $response->setEncodingOptions(
+            $response->getEncodingOptions() | JSON_PRETTY_PRINT
+        );
+        return $response;
+    }
 }

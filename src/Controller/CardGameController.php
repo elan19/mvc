@@ -130,44 +130,6 @@ class CardGameController extends AbstractController
         return $this->render('cardGame/twenty_one.html.twig');
     }
 
-    /*#[Route("/game/blackjack/draw", name: "game_twenty_one_draw")]
-    public function blackjackDraw(SessionInterface $session): Response
-    {
-        if ($session->has("deck") == FALSE) {
-            $deck = new DeckOfCards();
-            $deck->shuffle();
-            $session->set("deck", $deck);
-        }
-        $deck = $session->get("deck");
-        if (!$session->has("player") || !$session->has("dealer")) {
-            $playerHand = $session->get("playerhand");
-            $dealerHand = $session->get("dealerhand");
-            $didStay = $session->get("stay");
-            if ($playerHand instanceof CardHand) {
-                if ($playerHand->getHandValue() < 21 && $didStay == FALSE) {
-                    if ($deck instanceof DeckOfCards) {
-                        $card = $deck->drawCard();
-                        $playerHand->addCard($card);
-                        $session->set("playerhand", $playerHand);
-                        $session->set("dealerhand", $dealerHand);
-                        return $this->render('cardGame/twenty_one.html.twig', ['player' => $playerHand, 'dealer' => $dealerHand]);
-                    }
-                }
-            }
-            if ($dealerHand instanceof CardHand) {
-                while ($dealerHand->getHandValue() < 17) {
-                    if ($deck instanceof DeckOfCards) {
-                        $card = $deck->drawCard();
-                        $dealerHand->addCard($card);
-                        $session->set("dealerhand", $dealerHand);
-                    }
-                }
-            }
-            return $this->render('cardGame/twenty_one.html.twig', ['player' => $playerHand, 'dealer' => $dealerHand]);
-        }
-        return $this->render('cardGame/twenty_one.html.twig');
-    }*/
-
     #[Route("/game/blackjack/draw", name: "game_twenty_one_draw")]
     public function blackjackDraw(SessionInterface $session): Response
     {
@@ -185,7 +147,6 @@ class CardGameController extends AbstractController
         if (!$playerHand instanceof CardHand || !$dealerHand instanceof CardHand) {
             return $this->render('cardGame/twenty_one.html.twig');
         }
-
         if ($playerHand->getHandValue() >= 21 || $didStay) {
             while ($dealerHand->getHandValue() < 17 && $deck instanceof DeckOfCards) {
                 $card = $deck->drawCard();
@@ -215,7 +176,7 @@ class CardGameController extends AbstractController
         }
         $deck = $session->get("deck");
         $session->set("stay", true);
-        if (!$session->has("player") || !$session->has("dealer")) {
+        if ($session->has("playerhand") || $session->has("dealerhand")) {
             $playerHand = $session->get("playerhand");
             $dealerHand = $session->get("dealerhand");
             if ($dealerHand instanceof CardHand) {
