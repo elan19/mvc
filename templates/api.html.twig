@@ -8,7 +8,6 @@
 <p><a href="{{ path('quotes') }}">Quotes</a> - Visar upp dagens Quote</p>
 <p><a href="{{ path('api_deck') }}">Deck</a> - Visar upp hela kortleken, sorterad</p>
 
-
 <form method="post" action="">
     <p>
         <input type="submit" name="shuffle" value="Shuffle"
@@ -29,5 +28,7 @@
         - Klicka draw 5 för att dra 5 kort och visa vilka kort det är
     </p>
 </form>
+
+<p><a href="{{ path('api_blackjack') }}">Blackjack</a> - Visar upp nuvarande ställning i blackjack spelet</p>
 
 {% endblock %}
