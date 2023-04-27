@@ -32,17 +32,23 @@
     Psuedokod - Stay
 </h3>
 <p>
-    Kollar om 'deck' finns i sessionen. Om 'deck' inte så skapas den och kortleken shufflas. Annars hämtas den från session.
+    Kollar om 'deck' finns i sessionen. Om 'deck' inte så skapas den och kortleken shufflas.
 </p>
 <p>Hämta 'deck' från session.</p>
 <p>
-    Uppdaterar stay i session till true, spelaren har då stannat.
+    Skapar stay i session till true, spelaren har då stannat.
 </p>
 <p>
     Kollar ifall playerhand och dealerhand finns i session, om det finns så hämtas dem och läggs i en variabel.
 </p>
 <p>
     Dealern drar kort tills hans hands värde är över 17. Då stannar spelet.
+</p>
+
+<h3 class="center">Klasser för implementation</h3>
+<p>
+    För att implementera detta spel så använde jag mig av de tidigare klasserna som skapades inför <a href="{{ path('card_start') }}">Card game</a>.
+    Utöver det som fanns då har jag inte ändrat något i klasserna utan använde dem som de var.
 </p>
 
 {% endblock %}

@@ -102,9 +102,6 @@ class CardGameController extends AbstractController
     #[Route("/game", name: "game_home")]
     public function game(): Response
     {
-        //$deck = new DeckOfCards();
-        //$deck->shuffle();
-        //$session->set("deck", $deck);
         return $this->render('cardGame/game_home.html.twig');
     }
 
@@ -115,17 +112,15 @@ class CardGameController extends AbstractController
         $deck->shuffle();
         $session->set("deck", $deck);
         $deck = $session->get("deck");
-        if (!$session->has("player") || !$session->has("dealer")) {
-            $playerHand = new CardHand();
-            $dealerHand = new CardHand();
-            if ($deck instanceof DeckOfCards) {
-                $card = $deck->drawCard();
-                $playerHand->addCard($card);
-                $session->set("playerhand", $playerHand);
-                $session->set("dealerhand", $dealerHand);
-                $session->set("stay", false);
-                return $this->render('cardGame/twenty_one.html.twig', ['player' => $playerHand, 'dealer' => $dealerHand]);
-            }
+        $playerHand = new CardHand();
+        $dealerHand = new CardHand();
+        if ($deck instanceof DeckOfCards) {
+            $card = $deck->drawCard();
+            $playerHand->addCard($card);
+            $session->set("playerhand", $playerHand);
+            $session->set("dealerhand", $dealerHand);
+            $session->set("stay", false);
+            return $this->render('cardGame/twenty_one.html.twig', ['player' => $playerHand, 'dealer' => $dealerHand]);
         }
         return $this->render('cardGame/twenty_one.html.twig');
     }
