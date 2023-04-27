@@ -192,4 +192,10 @@ class CardGameController extends AbstractController
         }
         return $this->render('cardGame/twenty_one.html.twig');
     }
+
+    #[Route("/game/doc", name: "game_doc")]
+    public function gameDoc(): Response
+    {
+        return $this->render('cardGame/game_dock.html.twig');
+    }
 }
