@@ -176,7 +176,7 @@ class CardGameController extends AbstractController
         }
         $deck = $session->get("deck");
         $session->set("stay", true);
-        if ($session->has("playerhand") || $session->has("dealerhand")) {
+        if ($session->has("playerhand") && $session->has("dealerhand")) {
             $playerHand = $session->get("playerhand");
             $dealerHand = $session->get("dealerhand");
             if ($dealerHand instanceof CardHand) {

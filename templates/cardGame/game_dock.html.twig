@@ -8,8 +8,41 @@
 <h3 class="center">Flödesschema</h3>
 <img class="uml" src="{{ asset('img/flow_schema.png') }}" alt="Flödesschema">
 
+<h3>
+    Psuedokod - Draw card
+</h3>
 <p>
-    
+    Kollar om 'deck' finns i sessionen. Om 'deck' inte så skapas den och kortleken shufflas.
+</p>
+<p>Hämta 'deck' från session.</p>
+<p>
+    Hämta spelarens respektive dealerns hand från sessionen.
+</p>
+<p>
+    Kollar ifall spelarens värde på handen är 21 eller över, har spelaren stannat är spelaren färdig och dealern får dra kort tills han har över 16 poäng.
+</p>
+<p>
+    Kollar om spelaren har stannat, har spelaren stannat är spelaren färdig och dealern får dra kort tills han har över 16 poäng.
+</p>
+<p>
+    Annars drar man ett kort till spelaren och visar upp det, samt uppdaterar poängen spelaren har och lägger in allting i session.
+</p>
+
+<h3>
+    Psuedokod - Stay
+</h3>
+<p>
+    Kollar om 'deck' finns i sessionen. Om 'deck' inte så skapas den och kortleken shufflas. Annars hämtas den från session.
+</p>
+<p>Hämta 'deck' från session.</p>
+<p>
+    Uppdaterar stay i session till true, spelaren har då stannat.
+</p>
+<p>
+    Kollar ifall playerhand och dealerhand finns i session, om det finns så hämtas dem och läggs i en variabel.
+</p>
+<p>
+    Dealern drar kort tills hans hands värde är över 17. Då stannar spelet.
 </p>
 
 {% endblock %}
