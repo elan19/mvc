@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 class CardGraphicTest extends TestCase
 {
     /**
-     * Construct object with arguments 5 and H
+     * Construct object with arguments 5 and H and get the symbols
      */
     public function testCreateObject()
     {
