@@ -2,6 +2,8 @@
 
 namespace App\Card;
 
+use Exception;
+
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -12,7 +14,7 @@ class DeckOfCardsTest extends TestCase
     /**
      * Construct object
      */
-    public function testCreateObjectEmptyArgument()
+    public function testCreateObjectEmptyArgument(): void
     {
         $deck = new DeckOfCards();
         $this->assertInstanceOf("App\Card\DeckOfCards", $deck);
@@ -21,7 +23,7 @@ class DeckOfCardsTest extends TestCase
     /**
      * Test shuffle function
      */
-    public function testShuffle()
+    public function testShuffle(): void
     {
         $deck = new DeckOfCards();
         $deck->sort();
@@ -33,7 +35,7 @@ class DeckOfCardsTest extends TestCase
     /**
      * Test deal function
      */
-    public function testDeal()
+    public function testDeal(): void
     {
         $deck = new DeckOfCards();
         $deck->sort();
@@ -46,7 +48,7 @@ class DeckOfCardsTest extends TestCase
     /**
      * Test getCards function
      */
-    public function testGetCards()
+    public function testGetCards(): void
     {
         $deck = new DeckOfCards();
         $deck->sort();
@@ -58,7 +60,7 @@ class DeckOfCardsTest extends TestCase
     /**
      * Test cardsLeft function
      */
-    public function testCardsLeft()
+    public function testCardsLeft(): void
     {
         $deck = new DeckOfCards();
         $res = $deck->cardsLeft();
@@ -69,7 +71,7 @@ class DeckOfCardsTest extends TestCase
     /**
      * Test to draw a card function
      */
-    public function testDrawCard()
+    public function testDrawCard(): void
     {
         $deck = new DeckOfCards();
         $deck->sort();
@@ -77,5 +79,12 @@ class DeckOfCardsTest extends TestCase
         $res = $card->getSymbol();
         $exp = "♥2";
         $this->assertEquals($exp, $res);
+
+        for ($i=0; $i < 51; $i++) {
+            $deck->drawCard();
+        }
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Empty deck.');
+        $deck->drawCard();
     }
 }

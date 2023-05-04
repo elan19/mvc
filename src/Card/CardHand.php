@@ -2,31 +2,53 @@
 
 namespace App\Card;
 
+/**
+ * Represents a hand of playing cards.
+ */
 class CardHand
 {
     /**
-    * @var CardGraphic[]
-    */
+     * An array of CardGraphic objects representing the cards in the hand.
+     *
+     * @var CardGraphic[]
+     */
     private array $cards;
 
+    /**
+     * Initializes an empty CardHand object.
+     */
     public function __construct()
     {
         $this->cards = [];
     }
 
+    /**
+     * Adds a CardGraphic object to the hand.
+     *
+     * @param CardGraphic $card The CardGraphic object to add to the hand.
+     *
+     * @return void
+     */
     public function addCard(CardGraphic $card): void
     {
         $this->cards[] = $card;
     }
 
     /**
-    * @return CardGraphic[]
-    */
+     * Gets an array of CardGraphic objects representing the cards in the hand.
+     *
+     * @return CardGraphic[] An array of CardGraphic objects representing the cards in the hand.
+     */
     public function getCards(): array
     {
         return $this->cards;
     }
 
+    /**
+     * Calculates the value of the hand according to the rules of blackjack.
+     *
+     * @return float The value of the hand.
+     */
     public function getHandValue(): float
     {
         $cards = $this->getCards();

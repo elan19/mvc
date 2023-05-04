@@ -48,32 +48,32 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Card\\CardHand",
             "name": "CardHand",
-            "summary": "",
+            "summary": "Represents\u0020a\u0020hand\u0020of\u0020playing\u0020cards.",
             "url": "classes/App-Card-CardHand.html"
         },                {
             "fqsen": "\\App\\Card\\CardHand\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "",
+            "summary": "Initializes\u0020an\u0020empty\u0020CardHand\u0020object.",
             "url": "classes/App-Card-CardHand.html#method___construct"
         },                {
             "fqsen": "\\App\\Card\\CardHand\u003A\u003AaddCard\u0028\u0029",
             "name": "addCard",
-            "summary": "",
+            "summary": "Adds\u0020a\u0020CardGraphic\u0020object\u0020to\u0020the\u0020hand.",
             "url": "classes/App-Card-CardHand.html#method_addCard"
         },                {
             "fqsen": "\\App\\Card\\CardHand\u003A\u003AgetCards\u0028\u0029",
             "name": "getCards",
-            "summary": "",
+            "summary": "Gets\u0020an\u0020array\u0020of\u0020CardGraphic\u0020objects\u0020representing\u0020the\u0020cards\u0020in\u0020the\u0020hand.",
             "url": "classes/App-Card-CardHand.html#method_getCards"
         },                {
             "fqsen": "\\App\\Card\\CardHand\u003A\u003AgetHandValue\u0028\u0029",
             "name": "getHandValue",
-            "summary": "",
+            "summary": "Calculates\u0020the\u0020value\u0020of\u0020the\u0020hand\u0020according\u0020to\u0020the\u0020rules\u0020of\u0020blackjack.",
             "url": "classes/App-Card-CardHand.html#method_getHandValue"
         },                {
             "fqsen": "\\App\\Card\\CardHand\u003A\u003A\u0024cards",
             "name": "cards",
-            "summary": "",
+            "summary": "An\u0020array\u0020of\u0020CardGraphic\u0020objects\u0020representing\u0020the\u0020cards\u0020in\u0020the\u0020hand.",
             "url": "classes/App-Card-CardHand.html#property_cards"
         },                {
             "fqsen": "\\App\\Card\\DeckOfCards",

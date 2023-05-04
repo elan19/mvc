@@ -12,7 +12,7 @@ class CardHandTest extends TestCase
     /**
      * Construct object with arguments 5 and H
      */
-    public function testCreateObjectEmptyArguments()
+    public function testCreateObjectEmptyArguments(): void
     {
         $hand = new CardHand();
         $this->assertInstanceOf("App\Card\CardHand", $hand);
@@ -25,7 +25,7 @@ class CardHandTest extends TestCase
     /**
      * Test to add a card and get the hands value
      */
-    public function testAddCardGetValue()
+    public function testAddCardGetValue(): void
     {
         $hand = new CardHand();
         $this->assertInstanceOf("App\Card\CardHand", $hand);
