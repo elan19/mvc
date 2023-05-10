@@ -42,12 +42,20 @@ class LibraryController extends AbstractController
         ]);
     }
 
-
-    #[Route('/library/{id}', name: 'library_show')]
+    #[Route('/library/book/{id}', name: 'library_show')]
     public function show(Book $book): Response
     {
         return $this->render('library/show.html.twig', [
             'book' => $book,
         ]);
+    }
+
+    #[Route('/library/books', name: 'library_showAll')]
+    public function showAll(EntityManagerInterface $entityManager): Response
+    {
+        $bookRepository = $entityManager->getRepository(Book::class);
+        $books = $bookRepository->findAll();
+
+        return $this->render('library/show_many.html.twig', ['books' => $books,]);
     }
 }
