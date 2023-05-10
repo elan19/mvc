@@ -1,0 +1,15 @@
+{# templates/book/show.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>{{ book.title }}</h1>
+    <p>Author: {{ book.author }}</p>
+    <p>ISBN: {{ book.ISBN }}</p>
+    <p>Title: {{ book.title }}</p>
+    {% if book.picture %}
+    <p>Picture: </p><img src="{{ book.picture }}" alt="{{ book.title }}">
+    {% else %}
+        <p>Picture: No picture found</p>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,17 @@
+{# templates/book/new.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Add Book{% endblock %}
+
+{% block body %}
+    <h1>Add a new book</h1>
+
+    {{ form_start(form) }}
+        {{ form_row(form.title) }}
+        {{ form_row(form.author) }}
+        {{ form_row(form.ISBN, {'label': 'ISBN'}) }}
+        {{ form_row(form.picture) }}
+        <button type="submit">Add book</button>
+    {{ form_end(form) }}
+{% endblock %}
