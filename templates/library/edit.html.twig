@@ -5,8 +5,9 @@
 
     {{ form_start(form, { method: 'POST' }) }}
         {{ form_widget(form) }}
+        <br>
         <button type="submit" class="btn btn-primary">Save Changes</button>
     {{ form_end(form) }}
-
+    <br>
     <a href="{{ path('library_show', {'id': book.id}) }}">Back to Book Details</a>
 {% endblock %}
