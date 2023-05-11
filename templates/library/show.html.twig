@@ -1,15 +1,18 @@
-{# templates/book/show.html.twig #}
-
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>{{ book.title }}</h1>
-    <p>Author: {{ book.author }}</p>
-    <p>ISBN: {{ book.ISBN }}</p>
-    <p>Title: {{ book.title }}</p>
-    {% if book.picture %}
-    <p>Picture: </p><img src="{{ book.picture }}" alt="{{ book.title }}">
-    {% else %}
-        <p>Picture: No picture found</p>
-    {% endif %}
+    <h1>Book Details</h1>
+        <p><span> Title: </span> {{ book.title }}</p>
+        <p><span> Author: </span> {{ book.author }}</p>
+        <p><span> ISBN: </span> {{ book.ISBN }}</p>
+        <p><span> Picture: </span></p> <img class="details_pic" src="{{ asset('img/') ~ book.picture }}" alt="Fairy tale">
+
+    <form method="POST" action="{{ path('library_edit', {'id': book.id}) }}">
+        <input type="hidden" name="_method" value="POST">
+        <input type="submit" value="Edit book">
+    </form>
+    <form action="{{ path('library_delete', {'id': book.id}) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this book?')">
+        <input type="hidden" name="_method" value="DELETE">
+        <button type="submit" class="btn btn-danger">Delete Book</button>
+    </form>
 {% endblock %}

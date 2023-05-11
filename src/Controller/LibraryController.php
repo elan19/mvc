@@ -45,6 +45,7 @@ class LibraryController extends AbstractController
     #[Route('/library/book/{id}', name: 'library_show')]
     public function show(Book $book): Response
     {
+        
         return $this->render('library/show.html.twig', [
             'book' => $book,
         ]);
@@ -57,5 +58,31 @@ class LibraryController extends AbstractController
         $books = $bookRepository->findAll();
 
         return $this->render('library/show_many.html.twig', ['books' => $books,]);
+    }
+
+    #[Route('/library/book/{id}/edit', name: 'library_edit', methods: ['POST'])]
+    public function edit(Book $book, Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $form = $this->createForm(BookType::class, $book);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush();
+
+            return $this->redirectToRoute('library_show', ['id' => $book->getId()]);
+        }
+
+        return $this->render('library/edit.html.twig', [
+            'book' => $book,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    #[Route('/library/book/{id}/delete', name: 'library_delete', methods: ['POST'])]
+    public function delete(Book $book, EntityManagerInterface $entityManager): Response
+    {
+        $entityManager->remove($book);
+        $entityManager->flush();
+        return $this->redirectToRoute('library_home');
     }
 }
