@@ -5,7 +5,11 @@
         <p><span> Title: </span> {{ book.title }}</p>
         <p><span> Author: </span> {{ book.author }}</p>
         <p><span> ISBN: </span> {{ book.ISBN }}</p>
+        {% if book.picture %}
         <p><span> Picture: </span></p> <img class="details_pic" src="{{ asset('img/') ~ book.picture }}" alt="Fairy tale">
+        {% else %}
+        <p><span> Picture: </span> No picture</p>
+        {% endif %}
 
     <form method="POST" action="{{ path('library_edit', {'id': book.id}) }}">
         <input type="hidden" name="_method" value="POST">

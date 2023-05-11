@@ -21,7 +21,8 @@ class ProductController extends AbstractController
     }
 
     #[Route('/product/create', name: 'product_create')]
-    public function createProduct(ManagerRegistry $doctrine): Response {
+    public function createProduct(ManagerRegistry $doctrine): Response
+    {
         $entityManager = $doctrine->getManager();
 
         $product = new Product();
@@ -39,7 +40,8 @@ class ProductController extends AbstractController
     }
 
     #[Route('/product/show', name: 'product_show_all')]
-    public function showAllProduct(ProductRepository $productRepository): Response {
+    public function showAllProduct(ProductRepository $productRepository): Response
+    {
         $products = $productRepository->findAll();
 
         return $this->json($products);
@@ -47,7 +49,9 @@ class ProductController extends AbstractController
 
     #[Route('/product/show/{id}', name: 'product_by_id')]
     public function showProductById(
-        ProductRepository $productRepository,int $id): Response {
+        ProductRepository $productRepository,
+        int $id
+    ): Response {
         $product = $productRepository->find($id);
 
         return $this->json($product);

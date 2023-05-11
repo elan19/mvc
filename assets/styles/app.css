@@ -162,3 +162,26 @@ span {
 .details_pic {
     width: 200px;
 }
+
+table {
+    width: 50%;
+    margin-left: 25%;
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+th {
+    border-bottom: 1px solid black;
+    border-collapse: collapse;
+    height: 30px;
+}
+
+td {
+    text-align: center;
+    height: 40px;
+    border-bottom: 1px solid black;
+}
+
+.middle {
+    margin: 0 auto;
+}
