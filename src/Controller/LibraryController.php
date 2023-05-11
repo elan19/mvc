@@ -22,9 +22,6 @@ class LibraryController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/books/new", name="book_new")
-     */
     #[Route('/library/add', name: 'library_add')]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
