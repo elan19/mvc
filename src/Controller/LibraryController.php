@@ -110,4 +110,28 @@ class LibraryController extends AbstractController
         );
         return $response;
     }
+
+    #[Route('/api/library/book/{isbn}', name: 'api_library_book', methods: ['GET'])]
+    public function apiBook(string $isbn, EntityManagerInterface $entityManager): JsonResponse
+    {
+        $book = $entityManager->getRepository(Book::class)
+            ->findOneBy(['ISBN' => $isbn]);
+
+        if (!$book) {
+            throw $this->createNotFoundException('The book with ISBN ' . $isbn . ' does not exist.');
+        }
+
+        $data = [
+            'id' => $book->getId(),
+            'title' => $book->getTitle(),
+            'author' => $book->getAuthor(),
+            'ISBN' => $book->getISBN(),
+            'picture' => $book->getPicture(),
+        ];
+
+        $response = new JsonResponse($data);
+        $response->setEncodingOptions($response->getEncodingOptions() | JSON_PRETTY_PRINT);
+
+        return $response;
+    }
 }
