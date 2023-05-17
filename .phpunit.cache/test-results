@@ -1,0 +1,1 @@
+{"version":1,"defects":{"App\\Card\\CardHandTest::testCreateObjectEmptyArguments":5,"App\\Card\\CardGraphicTest::testCreateObject":5,"App\\Card\\CardTest::testCreateObject":5},"times":{"App\\Card\\CardGraphicTest::testCreateObject":0.002,"App\\Card\\CardTest::testCreateObject":0,"App\\Card\\CardHandTest::testCreateObjectEmptyArguments":0}}
