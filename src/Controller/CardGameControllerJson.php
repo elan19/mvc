@@ -92,7 +92,7 @@ class CardGameControllerJson
             }
             if ($deck->cardsLeft() > 0) {
                 $card = $session->get("lastCard");
-                if($card instanceof CardGraphic) {
+                if ($card instanceof CardGraphic) {
                     $cardSymbol = $card->getSymbol();
 
                     $data = [
