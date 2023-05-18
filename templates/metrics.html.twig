@@ -1,0 +1,80 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Metrics{% endblock %}
+
+{% block body %}
+<h1>Introduktion</h1>
+<p>
+    I mjukvaruutveckling är det av avgörande betydelse att producera kod av hög kvalitet för att skapa hållbara och pålitliga program. 
+    För att uppnå detta är det viktigt att uppmärksamma de sex C:na och deras påverkan på kodkvaliteten.
+</p>
+<p>De sex C:na står för:</p>
+<ul>
+    <li class="li-text">1. Correctness (Korrekthet): Att koden uppfyller dess syfte och fungerar som förväntat.</li>
+    <li class="li-text">2. Clarity (Tydlighet): Att koden är lätt att läsa, förstå och underhålla.</li>
+    <li class="li-text">3. Completeness (Fullständighet): Att koden är komplett och inte saknar viktig funktionalitet.</li>
+    <li class="li-text">4. Conciseness (Kortfattadhet): Att koden är effektiv och inte innehåller onödiga upprepningar eller komplexitet.</li>
+    <li class="li-text">5. Consistency (Konsistens): Att koden följer etablerade konventioner och stilregler.</li>
+    <li class="li-text">6. Coherence (Sammanhang): Att koden är välstrukturerad och organiserad för att underlätta läsbarhet och underhåll.</li>
+</ul>
+<p>
+    Genom att använda sig av scrutinizer samt PHPMetrics får man bra information och en uppfattning om hur sin kodstruktur är samt fungerar.
+    Till exempel säger scrutinizer att min kod har en rating på 9.78 vilket är "very good". Däremot är 'Coverage' bara 13% vilket är dåligt.
+    PHPMetrics visar att kodstrukturen har en bra genomsnittlig komplexitet, men även att visa klasser har lite för hög komplexitet.
+</p>
+
+<img src="{{ asset('img/phpmetrics.png') }}" alt="Bild på phpmetrics">
+<p>
+    Genom att använda sig av PHPMetrics kan man kontrollera sin kodstruktur och med hjälp av den ser man att min kod är uppbyggd av 21 klasser och totalt
+    ca 1100 rader kod. Jämför man det med antalet "violations" som PHpMetrics hittar så är det total 7 stycken. Varav 0 kritiska och 1 error. Det betyder
+    att koden är rätt välstrukturerad och organiserad samt uppfyller sina krav.
+</p>
+<img class="details_pic" src="{{ asset('img/complexity_nr.png') }}" alt="Bild på complexity">
+<p>
+    På denna bild visas den genomsnittliga komplexiteten på alla klasserna tillsammans. Den visar att den genomsnittliga komplexiteten är 5.38
+    för varje klass som finns.
+</p>
+
+<h1>Phpmetrics</h1>
+<p>Analysen av Phpmetrics-rapporten för min kod har identifierat flera flaskhalsar och svaga punkter. Här är några av de viktigaste:</p>
+<ul>
+    <li class="li-text">
+        1. Komplexitet i vissa klasser: Dessaa klasser har en hög komplexitetsnivå vilket kan påverka läsbarheten och 
+        underhållbarheten av koden negativt.
+    </li>
+    <li class="li-text">
+        2. Låg kodtäckning: Testfallen för flertalet klasser blir aldrig testade, vilket kan leda till oförutsägbara fel och bristfällig kvalitetssäkring.
+    </li>
+    <li class="li-text">
+        3. Låg maintainability i vissa klasser: Genom att kolla på kommande bild med cirklarna kan man se att 
+        ett antal klasser har ett lågt kvalitetsindex enligt Phpmetrics (de röda cirklarna), 
+        vilket kan indikera problem med struktur och läsbarhet.
+    </li>
+</ul>
+<img class="details_pic" src="{{ asset('img/complexity.png') }}" alt="Bild på complexity">
+<p>För att förbättra kvaliteten på min kod kommer jag att fokusera på dessa områden och implementera lämpliga åtgärder.</p>
+
+<h1>Scrutinizer</h1>
+<p>Analysen av Scrutinizer-rapporten för min kod har gett följande resultat:</p>
+<ul>
+    <li class="li-text">1. Build-badge: <a href="https://scrutinizer-ci.com/g/elan19/mvc/badges/build.png?b=main"><img class="details_pic" src="https://scrutinizer-ci.com/g/elan19/mvc/badges/build.png?b=main" alt="build"></a></li>
+    <li class="li-text">2. Coverage-badge: <a href="https://scrutinizer-ci.com/g/elan19/mvc/badges/coverage.png?b=main"><img class="details_pic" src="https://scrutinizer-ci.com/g/elan19/mvc/badges/coverage.png?b=main" alt="coverage"></a></li>
+    <li class="li-text">3. Quality-badge: <a href="https://scrutinizer-ci.com/g/elan19/mvc/badges/quality-score.png?b=main"><img class="details_pic" src="https://scrutinizer-ci.com/g/elan19/mvc/badges/quality-score.png?b=main" alt="quality"></a></li>
+</ul>
+<p>Genom att klicka på de tre olika badgesen kan du se detaljerade rapporter för build, coverage och quality.</p>
+
+<h1>Förbättringar</h1>
+<p>Jag har identifierat följande förbättringar som jag vill genomföra med min kod:</p>
+<ol>
+    <li>Minska antalet violations: Fixar en ny controller for API delen och tar då bort ett error som fanns.</li>
+    <li>Fokusera på fler tester: Genom att skapa fler tester kan man se ifall koden håller kvalitetssäkringar eller inte.</li>
+    <li>Genom att göra de två föregående förbättringarna så minskade även antalet potentiella buggar i koden samt minskade komplexiteten i koden</li>
+</ol>
+<p>Genom att implementera dessa förbättringar förväntar jag mig att se positiva förändringar i mätvärdena för kodkvalitet, såsom minskad komplexitet och förbättrad kodtäckning.</p>
+
+<h1>Diskussion</h1>
+<p>Att aktivt arbeta med kodkvalitet och "clean code" genom att använda verktyg som Phpmetrics och Scrutinizer kan vara mycket fördelaktigt. Genom att analysera rapporterna och ta åtgärder baserat på deras resultat kan man kontinuerligt förbättra kodens kvalitet och göra den mer läsbar och underhållbar.</p>
+<p>Det finns dock några möjliga nackdelar med denna metod. Det kan vara tidskrävande att analysera och genomföra förbättringar baserat på rapporterna, särskilt i stora projekt. Dessutom kan vissa aspekter av kodkvalitet vara svåra att kvantifiera och mäta objektivt.</p>
+<p>Det finns också andra sätt att jobba mot "clean code". Att tillämpa kodgranskningsprocesser, använda kodstandarder och utbilda utvecklare i bästa praxis kan vara lika viktiga för att uppnå hög kodkvalitet.</p>
+    
+{% endblock %}

@@ -185,3 +185,8 @@ td {
 .middle {
     margin: 0 auto;
 }
+
+.li-text {
+    display: block;
+    margin-left: 25px;
+}
