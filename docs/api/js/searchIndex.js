@@ -321,6 +321,11 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/App-Controller-LuckyControllerTwig.html#method_api"
         },                {
+            "fqsen": "\\App\\Controller\\LuckyControllerTwig\u003A\u003Ametrics\u0028\u0029",
+            "name": "metrics",
+            "summary": "",
+            "url": "classes/App-Controller-LuckyControllerTwig.html#method_metrics"
+        },                {
             "fqsen": "\\App\\Dice\\Dice",
             "name": "Dice",
             "summary": "",
@@ -446,15 +451,20 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/App-Controller-LibraryController.html#method_delete"
         },                {
-            "fqsen": "\\App\\Controller\\LibraryController\u003A\u003AapiBooks\u0028\u0029",
-            "name": "apiBooks",
-            "summary": "",
-            "url": "classes/App-Controller-LibraryController.html#method_apiBooks"
-        },                {
             "fqsen": "\\App\\Controller\\LibraryControllerJson",
             "name": "LibraryControllerJson",
             "summary": "",
             "url": "classes/App-Controller-LibraryControllerJson.html"
+        },                {
+            "fqsen": "\\App\\Controller\\LibraryControllerJson\u003A\u003AapiBooks\u0028\u0029",
+            "name": "apiBooks",
+            "summary": "",
+            "url": "classes/App-Controller-LibraryControllerJson.html#method_apiBooks"
+        },                {
+            "fqsen": "\\App\\Controller\\LibraryControllerJson\u003A\u003AapiBook\u0028\u0029",
+            "name": "apiBook",
+            "summary": "",
+            "url": "classes/App-Controller-LibraryControllerJson.html#method_apiBook"
         },                {
             "fqsen": "\\App\\Controller\\ProductController",
             "name": "ProductController",

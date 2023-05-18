@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1684423065">
-  <project timestamp="1684423065">
+<coverage generated="1684430556">
+  <project timestamp="1684430556">
     <file name="/home/elias/dbwebb-kurser/mvc/me/report/src/Card/Card.php">
       <class name="App\Card\Card" namespace="global">
         <metrics complexity="3" methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="4" coveredstatements="4" elements="7" coveredelements="7"/>
@@ -466,7 +466,7 @@
     </file>
     <file name="/home/elias/dbwebb-kurser/mvc/me/report/src/Controller/LibraryController.php">
       <class name="App\Controller\LibraryController" namespace="global">
-        <metrics complexity="14" methods="8" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="59" coveredstatements="0" elements="67" coveredelements="0"/>
+        <metrics complexity="10" methods="6" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="31" coveredstatements="0" elements="37" coveredelements="0"/>
       </class>
       <line num="17" type="method" name="index" visibility="public" complexity="1" crap="2" count="0"/>
       <line num="20" type="stmt" count="0"/>
@@ -505,37 +505,7 @@
       <line num="83" type="stmt" count="0"/>
       <line num="84" type="stmt" count="0"/>
       <line num="85" type="stmt" count="0"/>
-      <line num="88" type="method" name="apiBooks" visibility="public" complexity="2" crap="6" count="0"/>
-      <line num="91" type="stmt" count="0"/>
-      <line num="92" type="stmt" count="0"/>
-      <line num="94" type="stmt" count="0"/>
-      <line num="95" type="stmt" count="0"/>
-      <line num="96" type="stmt" count="0"/>
-      <line num="97" type="stmt" count="0"/>
-      <line num="98" type="stmt" count="0"/>
-      <line num="99" type="stmt" count="0"/>
-      <line num="100" type="stmt" count="0"/>
-      <line num="101" type="stmt" count="0"/>
-      <line num="104" type="stmt" count="0"/>
-      <line num="105" type="stmt" count="0"/>
-      <line num="106" type="stmt" count="0"/>
-      <line num="107" type="stmt" count="0"/>
-      <line num="108" type="stmt" count="0"/>
-      <line num="111" type="method" name="apiBook" visibility="public" complexity="2" crap="6" count="0"/>
-      <line num="114" type="stmt" count="0"/>
-      <line num="116" type="stmt" count="0"/>
-      <line num="117" type="stmt" count="0"/>
-      <line num="120" type="stmt" count="0"/>
-      <line num="121" type="stmt" count="0"/>
-      <line num="122" type="stmt" count="0"/>
-      <line num="123" type="stmt" count="0"/>
-      <line num="124" type="stmt" count="0"/>
-      <line num="125" type="stmt" count="0"/>
-      <line num="126" type="stmt" count="0"/>
-      <line num="128" type="stmt" count="0"/>
-      <line num="129" type="stmt" count="0"/>
-      <line num="131" type="stmt" count="0"/>
-      <metrics loc="134" ncloc="134" classes="1" methods="8" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="59" coveredstatements="0" elements="67" coveredelements="0"/>
+      <metrics loc="88" ncloc="88" classes="1" methods="6" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="31" coveredstatements="0" elements="37" coveredelements="0"/>
     </file>
     <file name="/home/elias/dbwebb-kurser/mvc/me/report/src/Controller/LibraryControllerJson.php">
       <class name="App\Controller\LibraryControllerJson" namespace="global">
@@ -858,6 +828,6 @@
       <line num="38" type="stmt" count="0"/>
       <metrics loc="67" ncloc="36" classes="1" methods="3" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="7" coveredstatements="0" elements="10" coveredelements="0"/>
     </file>
-    <metrics files="22" loc="1725" ncloc="1598" classes="21" methods="100" coveredmethods="30" conditionals="0" coveredconditionals="0" statements="625" coveredstatements="93" elements="725" coveredelements="123"/>
+    <metrics files="22" loc="1679" ncloc="1552" classes="21" methods="98" coveredmethods="30" conditionals="0" coveredconditionals="0" statements="597" coveredstatements="93" elements="695" coveredelements="123"/>
   </project>
 </coverage>

@@ -71,10 +71,31 @@
     <li>Genom att göra de två föregående förbättringarna så minskade även antalet potentiella buggar i koden samt minskade komplexiteten i koden</li>
 </ol>
 <p>Genom att implementera dessa förbättringar förväntar jag mig att se positiva förändringar i mätvärdena för kodkvalitet, såsom minskad komplexitet och förbättrad kodtäckning.</p>
+<p>Genom att jämföra dessa två olika bilderna kan man se att det har förbättrats utav de olika ändringarna jag gjorde i min kod. Violations har minskat,
+    genomsnittliga buggs har minskat, genomsnittliga komplexiteten har minskat i PHPMetrics samt coverage har ökat i scrutinizer.
+</p>
+<p>Gammal:</p>
+<img class="details_pic2" src="{{ asset('img/phpmetrics_gammal.png') }}" alt="Bild på complexity">
+<img class="details_pic" src="{{ asset('img/scrut_gammal.png') }}" alt="Bild på complexity">
+<p>Ny:</p>
+<img class="details_pic2" src="{{ asset('img/phpmetrics_ny.png') }}" alt="Bild på complexity">
+<img class="details_pic" src="{{ asset('img/scrut_ny.png') }}" alt="Bild på complexity">
 
 <h1>Diskussion</h1>
-<p>Att aktivt arbeta med kodkvalitet och "clean code" genom att använda verktyg som Phpmetrics och Scrutinizer kan vara mycket fördelaktigt. Genom att analysera rapporterna och ta åtgärder baserat på deras resultat kan man kontinuerligt förbättra kodens kvalitet och göra den mer läsbar och underhållbar.</p>
-<p>Det finns dock några möjliga nackdelar med denna metod. Det kan vara tidskrävande att analysera och genomföra förbättringar baserat på rapporterna, särskilt i stora projekt. Dessutom kan vissa aspekter av kodkvalitet vara svåra att kvantifiera och mäta objektivt.</p>
-<p>Det finns också andra sätt att jobba mot "clean code". Att tillämpa kodgranskningsprocesser, använda kodstandarder och utbilda utvecklare i bästa praxis kan vara lika viktiga för att uppnå hög kodkvalitet.</p>
+<p>
+    Jag tycker att man kan aktivt arbeta med kodkvalitet och "clean code" genom att använda verktyg som PHPMetrics och Scrutinizer
+    eftersom det kan ge en bättre kodstruktur och läsbarhet i sina program. Genom att analysera rapporterna och ta åtgärder baserat på deras 
+    resultat kan man kontinuerligt förbättra kodens kvalitet och göra den mer läsbar och underhållbar. Om man funderar på att göra det får man väga
+    för- och nackdelar mot varandra och välja det man tycker är viktigast.
+</p>
+<p>
+    Några möjliga nackdelar med denna metod är att det kan varatidskrävande att analysera och genomföra förbättringar baserat 
+    på rapporterna, särskilt i stora projekt. Dessutom kan vissa aspekter av kodkvalitet vara svåra att beräkna och mäta objektivt.
+    Några fördelarna är som tidigare sagt att det skapar en bättre kodstruktur samt ger koden en mer simpel läsbarhet för andra programmerare.
+</p>
+<p>
+    Det finns också andra sätt att jobba mot "clean code". Att använda kodstandarder och utbilda kunniga utvecklare kan vara lika viktiga 
+    för att uppnå hög kodkvalitet som att använda dessa "clean code" sätten.
+</p>
     
 {% endblock %}
