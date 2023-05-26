@@ -13,6 +13,8 @@ class CardHand
      * @var CardGraphic[]
      */
     private array $cards;
+    private bool $stand = false;
+
 
     /**
      * Initializes an empty CardHand object.
@@ -71,5 +73,25 @@ class CardHand
         }
 
         return $sum;
+    }
+
+    /**
+     * Checks if the hand is bust (hand value exceeds 21).
+     *
+     * @return bool True if the hand is bust, false otherwise.
+     */
+    public function isBust(): bool
+    {
+        return $this->getHandValue() > 21;
+    }
+
+    public function stand(): void
+    {
+        $this->stand = true;
+    }
+
+    public function isStand(): bool
+    {
+        return $this->stand;
     }
 }

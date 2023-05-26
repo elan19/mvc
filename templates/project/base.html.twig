@@ -6,7 +6,7 @@
         <link rel="icon" href="{{ asset('img/glider.svg') }}">
         {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
         {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}
+            {{ encore_entry_link_tags('proj') }}
         {% endblock %}
 
         {% block javascripts %}
@@ -20,15 +20,8 @@
         <nav>
             <ul>
                 <li><a href="{{ path('home') }}">Home</a></li> |
-                <li><a href="{{ path('about') }}">About</a></li> |
-                <li><a href="{{ path('report') }}">Reports</a></li> |
-                <li><a href="{{ path('lucky_number') }}">Lucky number</a></li> |
-                <li><a href="{{ path('card_start') }}">Card game</a></li> |
-                <li><a href="{{ path('game_home') }}">Blackjack</a></li> |
-                <li><a href="{{ path('library_home') }}">Library</a></li> |
-                <li><a href="{{ path('metrics') }}">Metrics</a></li> |
-                <li><a href="{{ path('api') }}">Api</a></li> |
-                <li><a href="{{ path('proj_home') }}">Proj</a></li>
+                <li><a href="{{ path('proj_home') }}">ProjHome</a></li>
+                <li><a href="{{ path('about') }}">About</a></li>
             </ul>
         </nav>
         {% block body %}{% endblock %}
