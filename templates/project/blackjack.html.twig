@@ -27,7 +27,7 @@
 
         {% if not playerHand.isBust() and not playerHand.isStand() %}
             {% if loop.index == currentPlayer %}
-                <form method="post" action="{{ path('blackjack', { 'numPlayers': numPlayers }) }}">
+                <form method="post" action="{{ path('blackjack_game') }}">
                     <input type="hidden" name="playerIndex" value="{{ loop.index }}">
                     <button type="submit" name="action" value="hit">Hit</button>
                     <button type="submit" name="action" value="stand">Stand</button>

@@ -1,0 +1,26 @@
+{% extends 'project/base.html.twig' %}
+
+{% block title %}Blackjack Setup{% endblock %}
+
+{% block body %}
+    <h1>Blackjack Bet and bank</h1>
+
+    {% if bet == true %}
+
+    <form method="post" action="{{ path('blackjack_game') }}">
+        {% for i in 1..numPlayers %}
+            <h2>Player {{ playerNames[loop.index] }} - Total money: ${{ playerHands[loop.index - 1].getTotalMoney() }}</h2>
+            <label for="betAmount{{ i }}">Bet Amount:</label>
+            <input type="number" id="betAmount{{ i }}" name="betAmount{{ i }}" min="1" required>
+            <br><br>
+        {% endfor %}
+
+        <button type="submit">Start Game</button>
+    </form>
+
+    {% else %}
+
+    <p>Game is already in progress, go back to the game: <a href="{{ path('blackjack_game') }}">Here</a></p>
+
+    {% endif %}
+{% endblock %}

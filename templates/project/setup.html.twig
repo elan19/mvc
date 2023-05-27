@@ -5,25 +5,22 @@
 {% block body %}
     <h1>Blackjack Setup</h1>
 
-    {% if game == true %}
+    {% if game == false %}
 
-    <form method="post" action="{{ path('blackjack', { 'numPlayers': numPlayers }) }}">
+    <form method="POST" action="{{ path('blackjack_bet') }}">
         {% for i in 1..numPlayers %}
             <h2>Player {{ i }}</h2>
-            <label for="betAmount{{ i }}">Bet Amount:</label>
-            <input type="number" id="betAmount{{ i }}" name="betAmount{{ i }}" min="1" required>
-            <br>
             <label for="playerName{{ i }}">Player Name:</label>
             <input type="text" id="playerName{{ i }}" name="playerName{{ i }}" required>
             <br><br>
         {% endfor %}
 
-        <button type="submit">Start Game</button>
+        <button type="submit">Continue</button>
     </form>
 
     {% else %}
 
-    <p>Game is already in progress, go back to the game: <a href="{{ path('blackjack', { 'numPlayers': numPlayers }) }}">Here</a></p>
+    <p>Game is already in progress, go back to the game: <a href="{{ path('blackjack_game') }}">Here</a></p>
 
     {% endif %}
 {% endblock %}
