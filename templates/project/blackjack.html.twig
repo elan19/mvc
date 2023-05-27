@@ -1,0 +1,42 @@
+{% extends 'project/base.html.twig' %}
+
+{% block title %}Blackjack{% endblock %}
+
+{% block body %}
+    <h1>Blackjack</h1>
+
+    <h2>Dealer's Hand</h2>
+    <p>Hand Value: {{ dealerHand.getHandValue() }}</p>
+    <p>
+        {% for card in dealerHand.getCards() %}
+            {{ card.getSymbol() }}
+        {% endfor %}
+    </p>
+
+    {% set currentPlayer = session.get('currentPlayer', 1) %}
+
+    {% for playerHand in playerHands %}
+        <h2>Player {{ playerNames[loop.index] }}</h2>
+        <h2>Player {{ loop.index }}</h2>
+        <p>Hand Value: {{ playerHand.getHandValue() }}</p>
+        <p>
+            {% for card in playerHand.getCards() %}
+                {{ card.getSymbol() }}
+            {% endfor %}
+        </p>
+
+        {% if not playerHand.isBust() and not playerHand.isStand() %}
+            {% if loop.index == currentPlayer %}
+                <form method="post" action="{{ path('blackjack', { 'numPlayers': numPlayers }) }}">
+                    <input type="hidden" name="playerIndex" value="{{ loop.index }}">
+                    <button type="submit" name="action" value="hit">Hit</button>
+                    <button type="submit" name="action" value="stand">Stand</button>
+                </form>
+            {% else %}
+                <p>Waiting for previous player...</p>
+            {% endif %}
+        {% endif %}
+
+        <hr>
+    {% endfor %}
+{% endblock %}
