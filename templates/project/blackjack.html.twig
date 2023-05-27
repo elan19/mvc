@@ -16,8 +16,8 @@
     {% set currentPlayer = session.get('currentPlayer', 1) %}
 
     {% for playerHand in playerHands %}
-        <h2>Player {{ playerNames[loop.index] }}</h2>
-        <h2>Player {{ loop.index }}</h2>
+        <h2>Player {{ playerNames[loop.index] }} - Total money: ${{ playerHand.getTotalMoney() }}</h2>
+        <h3>Bet: ${{ playerHand.getBet() }}</h3>
         <p>Hand Value: {{ playerHand.getHandValue() }}</p>
         <p>
             {% for card in playerHand.getCards() %}

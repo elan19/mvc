@@ -14,7 +14,8 @@ class CardHand
      */
     private array $cards;
     private bool $stand = false;
-
+    private float $bet = 0;
+    private float $totalMoney = 50;
 
     /**
      * Initializes an empty CardHand object.
@@ -93,5 +94,25 @@ class CardHand
     public function isStand(): bool
     {
         return $this->stand;
+    }
+
+    public function getBet(): float
+    {
+        return $this->bet;
+    }
+
+    public function setBet(float $bet): void
+    {
+        $this->bet = $bet;
+    }
+
+    public function getTotalMoney(): float
+    {
+        return $this->totalMoney;
+    }
+
+    public function updateTotalMoney(float $amount): void
+    {
+        $this->totalMoney += $amount;
     }
 }

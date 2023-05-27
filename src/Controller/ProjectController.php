@@ -22,7 +22,7 @@ class ProjectController extends AbstractController
     #[Route("/proj", name: "proj_home")]
     public function home(Request $request, SessionInterface $session): Response
     {
-        $form = $this->createFormBuilder()
+        /*$form = $this->createFormBuilder()
             ->add('numPlayers', IntegerType::class, [
                 'label' => 'Number of Players:',
                 'constraints' => [
@@ -34,19 +34,18 @@ class ProjectController extends AbstractController
             ->add('startGame', SubmitType::class, ['label' => 'Start Game'])
             ->getForm();
 
-        $form->handleRequest($request);
+        $form->handleRequest($request);*/
 
-        $session->set('setupInProgress', true);
+        $session->set('setupInProgress', false);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        /*if ($form->isSubmitted() && $form->isValid()) {
             $numPlayers = $form->getData()['numPlayers'];
+            var_dump("hej");
             // Redirect to the blackjack route with the number of players
-            return $this->redirectToRoute('blackjack_setup', ['numPlayers' => $numPlayers]);
-        }
+            //return $this->redirectToRoute('blackjack_setup', ['numPlayers' => $numPlayers]);
+        }*/
 
-        return $this->render('project/home.html.twig', [
-            'form' => $form->createView(),
-        ]);
+        return $this->render('project/home.html.twig');
     }
 
 
@@ -65,17 +64,19 @@ class ProjectController extends AbstractController
         if ($request->isMethod('POST') && $numPlayers >= 1 && $numPlayers <= 3) {
             // Store the number of players in the session
             $session->set('numPlayers', $numPlayers);
+        }
 
-            // Store the player names in an array
+        if ($request->isMethod('POST') && $request->request->has('playerName1')) {
             $playerNames = [];
             for ($i = 1; $i <= $numPlayers; $i++) {
-                $playerName = $request->request->get('playerName' . $i);
+                $playerName = $request->request->get("playerName$i");
                 $playerNames[$i] = $playerName;
             }
             $session->set('playerNames', $playerNames);
-
+            var_dump($playerNames);
+        
             // Redirect to the blackjack route
-            return $this->redirectToRoute('blackjack', ['numPlayers' => $numPlayers]);
+            //return $this->redirectToRoute('blackjack', ['numPlayers' => (int)$numPlayers]);
         }
 
         return $this->render('project/setup.html.twig', [
@@ -96,10 +97,28 @@ class ProjectController extends AbstractController
         $deck = $session->get('deck');
         $playerHands = $session->get('playerHands', []);
         $dealerHand = $session->get('dealerHand');
-        $playerNames = $session->get('playerNames', []);
         if ($session->get('setupInProgress')) {
-            $session->set('setupInProgress', false);
+            $session->set('setupInProgress', true);
         }
+
+        if ($request->isMethod('POST') && $request->request->has('playerName1')) {
+            $playerNames = [];
+            $playerBets = [];
+            for ($i = 1; $i <= $numPlayers; $i++) {
+                $playerName = $request->request->get("playerName$i");
+                $playerBet = $request->request->get("betAmount$i");
+                $playerNames[$i] = $playerName;
+                $playerBets[$i] = $playerBet;
+            }
+            $session->set('playerNames', $playerNames);
+            $session->set('playerBets', $playerBets);
+            var_dump($playerNames);
+        }
+        $playerNames = $session->get('playerNames', []);
+        $playerBets = $session->get('playerBets', []);
+
+        var_dump($playerNames);
+        var_dump($playerBets);
 
         // Initialize the game if the session data is not available
         if (!$deck || !$playerHands || !$dealerHand) {
@@ -175,6 +194,7 @@ class ProjectController extends AbstractController
             'dealerHand' => $dealerHand,
             'playerHands' => $playerHands,
             'playerNames' => $playerNames,
+            'playerBets' => $playerBets,
             'session' => $session,
         ]);
     }

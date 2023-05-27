@@ -7,7 +7,7 @@
 
     {% if game == true %}
 
-    <form method="post" action="{{ path('blackjack', {'numPlayers': numPlayers}) }}">
+    <form method="post" action="{{ path('blackjack', { 'numPlayers': numPlayers }) }}">
         {% for i in 1..numPlayers %}
             <h2>Player {{ i }}</h2>
             <label for="betAmount{{ i }}">Bet Amount:</label>
@@ -23,7 +23,7 @@
 
     {% else %}
 
-    <p>Game is already in progress, go back to the game: <a href="{{ path('blackjack') }}">Here</a></p>
+    <p>Game is already in progress, go back to the game: <a href="{{ path('blackjack', { 'numPlayers': numPlayers }) }}">Here</a></p>
 
     {% endif %}
 {% endblock %}
