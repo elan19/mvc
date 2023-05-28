@@ -167,7 +167,7 @@ class ProjectController extends AbstractController
 
         var_dump($playerNames);
         var_dump($playerBets);
-        var_dump($playerHands);
+        //var_dump($playerHands);
 
         $dealerHand = $session->get('dealerHand');
 
@@ -215,6 +215,7 @@ class ProjectController extends AbstractController
                         $playerHand->addCard($deck->drawCard());
                         if ($playerHand->isBust()) {
                             // Move to the next player
+                            $playerHand->stand();
                             $currentPlayer = $session->get('currentPlayer');
                             $currentPlayer++;
                             if ($currentPlayer > $numPlayers) {
@@ -254,6 +255,7 @@ class ProjectController extends AbstractController
             }
             $dealerHand->stand();
             $session->set('dealerHand', $dealerHand);
+            return $this->redirectToRoute('blackjack_winner');
         }
 
         return $this->render('project/blackjack.html.twig', [
@@ -264,4 +266,53 @@ class ProjectController extends AbstractController
             'session' => $session,
         ]);
     }
+
+    #[Route("/proj/blackjack/result", name: "blackjack_winner")]
+    public function blackjackWinner(SessionInterface $session): Response
+    {
+        $playerHands = $session->get('playerHands', []);
+        $dealerHand = $session->get('dealerHand');
+        $playerNames = $session->get('playerNames', []);
+
+        $winners = [];
+        $losers = [];
+
+        $dealerHandValue = $dealerHand->getHandValue();
+
+        foreach ($playerHands as $index => $playerHand) {
+            $playerHandValue = $playerHand->getHandValue();
+            $playerName = $session->get('playerNames', [])[$index + 1];
+            $bet = $playerHand->getBet();
+
+            if ($playerHand->isBust() || ($dealerHandValue <= 21 && $playerHandValue < $dealerHandValue) || $playerHandValue > 21) {
+                $losers[] = ['name' => $playerName, 'bet' => $bet];
+            } elseif (($playerHandValue <= 21 && $dealerHandValue < $playerHandValue) || $dealerHandValue > 21) {
+                $winners[] = ['name' => $playerName, 'bet' => $bet];
+                $wonMoney = $bet * 2;
+                var_dump($playerHand);
+                $playerHand->updateTotalMoney($wonMoney);
+            } elseif (($playerHandValue == $dealerHandValue)) {
+                $playerHand->updateTotalMoney($bet);
+            }
+        }
+
+        // Clear session data for the next round
+        $session->remove('deck');
+        $session->remove('playerHands');
+        $session->remove('dealerHand');
+        $session->remove('currentPlayer');
+        $session->remove('playerBets');
+        $session->remove('gameInProgress');
+        $session->remove('betInProgress');
+
+        return $this->render('project/result.html.twig', [
+            'winners' => $winners,
+            'losers' => $losers,
+            'dealerHand' => $dealerHand,
+            'playerHands' => $playerHands,
+            'playerNames' => $playerNames,
+        ]);
+    }
+
+
 }

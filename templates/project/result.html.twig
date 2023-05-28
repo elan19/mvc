@@ -1,0 +1,48 @@
+{% extends 'project/base.html.twig' %}
+
+{% block title %}Blackjack - Winners{% endblock %}
+
+{% block body %}
+    <h1>Blackjack - Winners</h1>
+
+    <h2>Dealer's Hand</h2>
+    <p>Hand Value: {{ dealerHand.getHandValue() }}</p>
+    <p>
+        {% for card in dealerHand.getCards() %}
+            {{ card.getSymbol() }}
+        {% endfor %}
+    </p>
+
+    <h2>Winners</h2>
+    {% if winners|length > 0 %}
+        {% for winner in winners %}
+            <p>Player {{ winner.name }} won! Bet: ${{ winner.bet }}</p>
+        {% endfor %}
+    {% else %}
+        <p>No winners this round.</p>
+    {% endif %}
+
+    <h2>Losers</h2>
+    {% if losers|length > 0 %}
+        {% for loser in losers %}
+            <p>Player {{ loser.name }} lost. Bet: ${{ loser.bet }}</p>
+        {% endfor %}
+    {% else %}
+        <p>No losers this round.</p>
+    {% endif %}
+
+    <hr>
+
+    {% for playerHand in playerHands %}
+        <h2>Player {{ playerNames[loop.index] }} - Total money: ${{ playerHand.getTotalMoney() }}</h2>
+        <p>Hand Value: {{ playerHand.getHandValue() }}</p>
+        <p>
+            {% for card in playerHand.getCards() %}
+                {{ card.getSymbol() }}
+            {% endfor %}
+        </p>
+        <hr>
+    {% endfor %}
+
+    <a href="{{ path('blackjack_bet') }}">Start a new round</a>
+{% endblock %}
