@@ -115,4 +115,11 @@ class CardHand
     {
         $this->totalMoney += $amount;
     }
+
+    public function resetHand(): void
+    {
+        unset($this->cards);
+        $this->stand = false;
+        $this->bet = 0;
+    }
 }
