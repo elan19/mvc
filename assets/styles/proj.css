@@ -1,8 +1,9 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f2f2f2;
+    background-color: #0D7334;
     margin: 0;
     padding: 0;
+    min-height: 900px;
 }
 
 h1 {
@@ -10,39 +11,11 @@ h1 {
     margin-bottom: 20px;
 }
 
-.table {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 30px;
-}
-
-.row {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 20px;
-}
-
-.dealer-row {
-    margin-bottom: 30px;
-}
-
-.hand {
-    display: flex;
-    flex-wrap: nowrap;
-    align-items: center;
+p {
+    font-size: 18px;
 }
 
 .card {
-    display: inline-block;
-    width: 100px;
-    height: 150px;
-    margin-right: 10px;
-    background-color: #fff;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    text-align: center;
-    line-height: 150px;
     font-size: 24px;
     font-weight: bold;
 }
@@ -75,15 +48,74 @@ h1 {
     color: #888;
 }
 
-hr {
-    border: none;
-    border-top: 1px solid #ccc;
-    margin: 20px 0;
+.player {
+    width: 33.33%;
+    min-height: 250px;
+    display: block;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    outline: 1px solid black;
+    float: left;
 }
 
-.player {
-    width: 33%;
-    height: 200px;
-    background-color: #ccc;
-    display: inline-block;
+.dealer {
+    width: 35%;
+    min-height: 250px;
+    text-align: center;
+    margin-left: 32.5%;
+    margin-right: 32.5%;
+    margin-bottom: 200px;
+    outline: 1px solid black;
+    float: left;
+}
+
+span {
+    font-weight: bold;
+}
+
+.table {
+    background-size: cover;
+    padding: 20px;
+    min-height: 1080px;
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    background-color: #003916;
+    height: 100px;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+nav li {
+    margin: 0 10px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #eee;
+    font-size: 18px;
+    line-height: 100px;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+footer {
+    background-color: #003916;
+    height: 50px;
+    margin: 0;
+    padding: 20px;
+    text-align: center;
 }
