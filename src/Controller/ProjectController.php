@@ -93,19 +93,12 @@ class ProjectController extends AbstractController
         if ($session->get('gameInProgress')) {
             return $this->redirectToRoute('blackjack_game');
         }
-
-        // Check if the form is submitted and the number of players is valid
-        /*if ($request->isMethod('POST') && $numPlayers >= 1 && $numPlayers <= 3) {
-            // Store the number of players in the session
-            $session->set('numPlayers', $numPlayers);
-        }*/
-        var_dump($numPlayers);
         $playerNames = [];
 
         if ($request->isMethod('POST') && $request->request->has('playerName1')) {
             for ($i = 1; $i <= $numPlayers; $i++) {
                 $playerName = $request->request->get("playerName$i");
-                $playerNames[$i] = $playerName;
+                $playerNames[$i-1] = $playerName;
             }
             $session->set('playerNames', $playerNames);
         }
@@ -123,8 +116,6 @@ class ProjectController extends AbstractController
         }
         $playerHands = $session->get('playerHands', []);
         $playerNames = $session->get('playerNames', []);
-        var_dump($playerHands);
-        var_dump($playerNames);
 
         if ($session->has('dealerHand')) {
             $session->remove('dealerHand');
@@ -312,27 +303,26 @@ class ProjectController extends AbstractController
         $playerHands = $session->get('playerHands', []);
         $dealerHand = $session->get('dealerHand');
         $playerNames = $session->get('playerNames', []);
+        $numPlayers = $session->get('numPlayers');
 
         $winners = [];
         $losers = [];
 
-        if (is_iterable($playerHands)) {
-            foreach ($playerHands as $index => $playerHand) {
+        if (is_iterable($playerHands) && is_iterable($playerNames) && is_array($playerHands) && is_array($playerNames)) {
+            for ($i = 0; $i < $numPlayers; $i++) {
+                $playerHand = $playerHands[$i];
                 if ($playerHand instanceof CardHand && $dealerHand instanceof CardHand) {
                     $playerHandValue = $playerHand->getHandValue();
                     $dealerHandValue = $dealerHand->getHandValue();
-                    if (is_int($index)) {
-                        $playerNameIndex = $index + 1;
-                        if (is_int($playerNameIndex)) {
-                            $playerName = $session->get('playerNames', [])[$playerNameIndex];
-                        }
+                    if (isset($playerNames[$i])) {
+                        $playerName = $playerNames[$i];
                         $bet = $playerHand->getBet();
 
                         if ($playerHand->isBust() || ($dealerHandValue <= 21 && $playerHandValue < $dealerHandValue) || $playerHandValue > 21) {
                             $losers[] = ['name' => $playerName, 'bet' => $bet];
                         } elseif (($playerHandValue <= 21 && $dealerHandValue < $playerHandValue) || $dealerHandValue > 21) {
                             $winners[] = ['name' => $playerName, 'bet' => $bet];
-                            $wonMoney = $bet * 2;
+                            $wonMoney = $bet * 1.5;
                             //var_dump($playerHand);
                             $playerHand->updateTotalMoney($wonMoney);
                         } elseif (($playerHandValue == $dealerHandValue)) {

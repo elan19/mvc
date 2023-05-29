@@ -16,7 +16,7 @@
     <h2>Winners</h2>
     {% if winners|length > 0 %}
         {% for winner in winners %}
-            <p>Player {{ winner.name }} won! Bet: ${{ winner.bet }}</p>
+            <p>Player '{{ winner.name }}' won ${{ winner.bet * 1.5 }}! Bet: ${{ winner.bet }}</p>
         {% endfor %}
     {% else %}
         <p>No winners this round.</p>
@@ -34,7 +34,7 @@
     <hr>
 
     {% for playerHand in playerHands %}
-        <h2>Player {{ playerNames[loop.index] }} - Total money: ${{ playerHand.getTotalMoney() }}</h2>
+        <h2>Player {{ playerNames[loop.index - 1] }} - Total money: ${{ playerHand.getTotalMoney() }}</h2>
         <p>Hand Value: {{ playerHand.getHandValue() }}</p>
         <p>
             {% for card in playerHand.getCards() %}

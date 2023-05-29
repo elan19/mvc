@@ -6,6 +6,11 @@ body {
     min-height: 900px;
 }
 
+.main {
+    min-height: 800px;
+    width: 100%;
+}
+
 h1 {
     text-align: center;
     margin-bottom: 20px;
@@ -28,7 +33,7 @@ p {
     margin-top: 10px;
 }
 
-.actions button {
+button {
     margin-right: 10px;
     padding: 8px 16px;
     font-size: 16px;
@@ -39,8 +44,25 @@ p {
     cursor: pointer;
 }
 
-.actions button:hover {
+button:hover {
     background-color: #0056b3;
+}
+
+.test {
+    width: 33%;
+    display: block;
+    float: left;
+    margin-top: 200px;
+    border: 1px solid black;
+    min-height: 125px;
+    margin-bottom: 50px;
+    text-align: center;
+}
+
+.middle-btn {
+    width: 10%;
+    display: block;
+    margin: 0 auto;
 }
 
 .waiting {
