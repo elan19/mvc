@@ -168,18 +168,16 @@ class ProjectController extends AbstractController
 
         if (is_iterable($playerHands) && is_iterable($playerNames) && is_array($playerHands) && is_array($playerNames) && 
         $dealerHand instanceof CardHand) {
-            $dealerHandValue = $dealerHand->getHandValue();
             for ($i = 0; $i < $session->get('numPlayers'); $i++) {
-                $playerHandValue = $playerHands[$i]->getHandValue();
                 $bet = $playerHands[$i]->getBet();
 
-                if ($playerHands[$i]->isBust() || ($dealerHandValue <= 21 && $playerHandValue < $dealerHandValue) || $playerHandValue > 21) {
+                if (dealerWon($session, $playerHands[$i], $dealerHand) === true) {
                     $losers[] = ['name' => $playerNames[$i], 'bet' => $bet];
-                } elseif (($playerHandValue <= 21 && $dealerHandValue < $playerHandValue) || $dealerHandValue > 21) {
+                } elseif (playerWon($session, $playerHands[$i], $dealerHand) === true) {
                     $winners[] = ['name' => $playerNames[$i], 'bet' => $bet];
                     $wonMoney = $bet * 1.5;
                     $playerHands[$i]->updateTotalMoney($wonMoney);
-                } elseif (($playerHandValue == $dealerHandValue)) {
+                } elseif ($playerHands[$i]->getHandValue() == $dealerHand->getHandValue()) {
                     $playerHands[$i]->updateTotalMoney($bet);
                 }
             }
@@ -373,4 +371,26 @@ function errorChecksBet(SessionInterface $session): string
     }
 
     return '';
+}
+
+function dealerWon(SessionInterface $session, CardHand $playerHand, CardHand $dealerHand): bool
+{
+    $playerHandValue = $playerHand->getHandValue();
+    $dealerHandValue = $dealerHand->getHandValue();
+    if ($playerHand->isBust() || ($dealerHandValue <= 21 && 
+        $playerHandValue < $dealerHandValue) || $playerHandValue > 21) {
+        return true;
+    }
+    return false;
+}
+
+function playerWon(SessionInterface $session, CardHand $playerHand, CardHand $dealerHand): bool
+{
+    $playerHandValue = $playerHand->getHandValue();
+    $dealerHandValue = $dealerHand->getHandValue();
+    if (($playerHandValue <= 21 && $dealerHandValue < $playerHandValue) || $dealerHandValue > 21)
+    {
+        return true;
+    }
+    return false;
 }
