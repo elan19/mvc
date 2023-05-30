@@ -20,13 +20,13 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 class ProjectController extends AbstractController
 {
     #[Route("/proj", name: "proj_home")]
-    public function home(Request $request, SessionInterface $session): Response
+    public function home(SessionInterface $session): Response
     {
-        if ($session->has('gameInProgress') == false) {
+        if ($session->has('gameInProgress') === false) {
             $session->set('gameInProgress', false);
         }
 
-        if ($session->has('betInProgress') == false) {
+        if ($session->has('betInProgress') === false) {
             $session->set('betInProgress', false);
         }
 
@@ -66,14 +66,6 @@ class ProjectController extends AbstractController
     public function blackjackBet(Request $request, SessionInterface $session): Response
     {
         $numPlayers = $session->get('numPlayers');
-
-        if($numPlayers == null) {
-            return $this->redirectToRoute('proj_home');
-        }
-
-        if ($session->get('gameInProgress')) {
-            return $this->redirectToRoute('blackjack_game');
-        }
         $playerNames = [];
 
         if ($request->isMethod('POST') && $request->request->has('playerName1')) {
@@ -84,23 +76,12 @@ class ProjectController extends AbstractController
             $session->set('playerNames', $playerNames);
         }
 
-        if (!$session->get('playerNames')) {
-            return $this->redirectToRoute('blackjack_setup');
+        if (errorChecksBet($session) != "") {
+            $returnRoute = errorChecksBet($session);
+            return $this->redirectToRoute($returnRoute);
         }
 
-        if (!$session->has('playerHands')) {
-            $playerHands = [];
-            for ($i = 0; $i < $numPlayers; $i++) {
-                $playerHands[$i] = new CardHand();
-            }
-            $session->set('playerHands', $playerHands);
-        }
         $playerHands = $session->get('playerHands', []);
-        $playerNames = $session->get('playerNames', []);
-
-        if ($session->has('dealerHand')) {
-            $session->remove('dealerHand');
-        }
 
         if (is_array($playerHands)) {
             foreach ($playerHands as $playerHand) {
@@ -108,14 +89,10 @@ class ProjectController extends AbstractController
             }
         }
 
-        if (!$session->get('betInProgress')) {
-            $session->set('betInProgress', true);
-        }
-
         return $this->render('project/bet.html.twig', [
             'numPlayers' => $numPlayers,
             'playerHands' => $playerHands,
-            'playerNames' => $playerNames,
+            'playerNames' => $session->get('playerNames', []),
             'bet' => $session->get('betInProgress'),
         ]);
     }
@@ -164,7 +141,6 @@ class ProjectController extends AbstractController
         // Process player actions
         checkPlayerAction($request, $session);
 
-        $dealerHand = $session->get('dealerHand');
         $deck = $session->get('deck');
 
         if (checkIfStopped($session)) {
@@ -173,7 +149,7 @@ class ProjectController extends AbstractController
 
         return $this->render('project/blackjack.html.twig', [
             'numPlayers' => $numPlayers,
-            'dealerHand' => $dealerHand,
+            'dealerHand' => $session->get('dealerHand'),
             'playerHands' => $playerHands,
             'playerNames' => $playerNames,
             'session' => $session,
@@ -194,7 +170,6 @@ class ProjectController extends AbstractController
         $dealerHand instanceof CardHand) {
             $dealerHandValue = $dealerHand->getHandValue();
             for ($i = 0; $i < $session->get('numPlayers'); $i++) {
-                $playerHand = $playerHands[$i];
                 $playerHandValue = $playerHands[$i]->getHandValue();
                 $bet = $playerHands[$i]->getBet();
 
@@ -283,7 +258,6 @@ function checkPlayerAction(Request $request, SessionInterface $session): Session
     $formData = $request->request->all();
     $playerHands = $session->get('playerHands', []);
     $deck = $session->get('deck');
-    $currentPlayer = $session->get('currentPlayer');
     $numPlayers = $session->get('numPlayers');
     
     if (isset($formData['playerIndex']) && isset($formData['action'])) {
@@ -363,6 +337,39 @@ function errorChecksGame(SessionInterface $session): string
 
     if (empty($playerBets)) {
         return 'blackjack_bet';
+    }
+
+    return '';
+}
+
+function errorChecksBet(SessionInterface $session): string
+{
+    if ($session->has('dealerHand')) {
+        $session->remove('dealerHand');
+    }
+
+    if($session->get('numPlayers') == null) {
+        return 'proj_home';
+    }
+
+    if (!$session->get('playerNames')) {
+        return 'blackjack_setup';
+    }
+
+    if (!$session->has('playerHands')) {
+        $playerHands = [];
+        for ($i = 0; $i < $session->get('numPlayers'); $i++) {
+            $playerHands[$i] = new CardHand();
+        }
+        $session->set('playerHands', $playerHands);
+    }
+
+    if (!$session->get('betInProgress')) {
+        $session->set('betInProgress', true);
+    }
+
+    if ($session->get('gameInProgress')) {
+        return 'blackjack_game';
     }
 
     return '';
