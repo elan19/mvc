@@ -726,6 +726,21 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/App-Repository-ProductRepository.html#method_remove"
         },                {
+            "fqsen": "\\App\\Controller\\createNewGame\u0028\u0029",
+            "name": "createNewGame",
+            "summary": "",
+            "url": "namespaces/app-controller.html#function_createNewGame"
+        },                {
+            "fqsen": "\\App\\Controller\\checkPlayerAction\u0028\u0029",
+            "name": "checkPlayerAction",
+            "summary": "",
+            "url": "namespaces/app-controller.html#function_checkPlayerAction"
+        },                {
+            "fqsen": "\\App\\Controller\\checkIfStopped\u0028\u0029",
+            "name": "checkIfStopped",
+            "summary": "",
+            "url": "namespaces/app-controller.html#function_checkIfStopped"
+        },                {
             "fqsen": "\\App\\Controller\\ProjectController",
             "name": "ProjectController",
             "summary": "",

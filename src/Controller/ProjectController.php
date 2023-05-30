@@ -17,32 +17,6 @@ use Symfony\Component\Validator\Constraints\GreaterThanOrEqual;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
-function test(SessionInterface $session) {
-    $deck = new DeckOfCards();
-    $deck->shuffle();
-    $playerHands = $session->get('playerHands', []);
-    $playerBets = $session->get('playerBets', []);
-
-    if (is_array($playerHands) && is_array($playerBets)) {
-        for ($i = 0; $i < $session->get('numPlayers'); $i++) {
-            $playerHands[$i]->addCard($deck->drawCard());
-            $playerHands[$i]->addCard($deck->drawCard());
-            $playerHands[$i]->setBet($playerBets[$i+1]);
-            $playerHands[$i]->updateTotalMoney(-$playerBets[$i+1]);
-        }
-    }
-
-    $dealerHand = new CardHand();
-    $dealerHand->addCard($deck->drawCard());
-
-    // Save the initial game state to the session
-    $session->set('deck', $deck);
-    $session->set('playerHands', $playerHands);
-    $session->set('dealerHand', $dealerHand);
-    $session->set('currentPlayer', 1); // Set the first player as the current player
-    return $session;
-}
-
 class ProjectController extends AbstractController
 {
     #[Route("/proj", name: "proj_home")]
@@ -157,31 +131,22 @@ class ProjectController extends AbstractController
     {
         $numPlayers = $session->get('numPlayers');
 
-        if(empty($numPlayers)) {
-            return $this->redirectToRoute('proj_home');
-        }
-
-        if (!$session->has('betInProgress')) {
-            return $this->redirectToRoute('blackjack_setup');
-        }
-
         $deck = $session->get('deck');
         $playerHands = $session->get('playerHands', []);
 
-        if ($request->isMethod('POST') && $request->request->has('betAmount1')) {
+        if ($request->isMethod('POST') && $request->request->has('betAmount1') && is_array($playerHands)) {
             $playerBets = [];
-            if (is_array($playerHands)) {
-                for ($i = 1; $i <= $numPlayers; $i++) {
-                    $playerBet = $request->request->get("betAmount$i");
-                    $playerBets[$i] = $playerBet;
-                }
-                $session->set('playerBets', $playerBets);
+            for ($i = 1; $i <= $numPlayers; $i++) {
+                $playerBet = $request->request->get("betAmount$i");
+                $playerBets[$i] = $playerBet;
             }
+            $session->set('playerBets', $playerBets);
         }
         $playerBets = $session->get('playerBets', []);
 
-        if (empty($playerBets)) {
-            return $this->redirectToRoute('blackjack_bet');
+        if (errorChecksGame($session) != "") {
+            $returnRoute = errorChecksGame($session);
+            return $this->redirectToRoute($returnRoute);
         }
 
         if ($session->get('gameInProgress') == false) {
@@ -192,70 +157,18 @@ class ProjectController extends AbstractController
         $playerNames = $session->get('playerNames', []);
         $dealerHand = $session->get('dealerHand');
 
-        // Initialize the game if the session data is not available
         if (!$deck || !$playerHands || !$dealerHand) {
-            $session = test($session);
+            $session = createNewGame($session);
         }
 
         // Process player actions
-        if ($request->isMethod('POST')) {
-            $formData = $request->request->all();
-            if (isset($formData['playerIndex']) && isset($formData['action'])) {
-                $playerIndex = $formData['playerIndex'] - 1;
-                $action = $formData['action'];
+        checkPlayerAction($request, $session);
 
-                if (is_array($playerHands) && isset($playerHands[(int)$playerIndex]) && $playerIndex === $session->get('currentPlayer') - 1) {
-                    $playerHand = $playerHands[(int)$playerIndex];
-                    if ($action === 'hit' && $playerHand instanceof CardHand) {
-                        if ($deck instanceof DeckOfCards) {
-                            $playerHand->addCard($deck->drawCard());
-                        }
-                        if ($playerHand->isBust()) {
-                            // Move to the next player
-                            $playerHand->stand();
-                            $currentPlayer = $session->get('currentPlayer');
-                            $currentPlayer++;
-                            if ($currentPlayer > $numPlayers) {
-                                $currentPlayer = 1; // Start over from the first player
-                            }
-                            $session->set('currentPlayer', $currentPlayer);
-                        }
-                    }
-                    if ($action === 'stand' && $playerHand instanceof CardHand) {
-                        $playerHand->stand();
-
-                        // Move to the next player
-                        $currentPlayer = $session->get('currentPlayer');
-                        $currentPlayer++;
-                        if ($currentPlayer > $numPlayers) {
-                            $currentPlayer = 1; // Start over from the first player
-                        }
-                        $session->set('currentPlayer', $currentPlayer);
-                    }
-
-                    $session->set('playerHands', $playerHands);
-                }
-            }
-        }
         $dealerHand = $session->get('dealerHand');
         $deck = $session->get('deck');
-        // Process dealer's turn if all players have stood
-        if (is_iterable($playerHands) && $dealerHand instanceof CardHand) {
-            $allPlayersStood = true;
-            foreach ($playerHands as $playerHand) {
-                if ($playerHand instanceof CardHand && !$playerHand->isStand()) {
-                    $allPlayersStood = false;
-                    break;
-                }
-            }
-            if ($allPlayersStood && !$dealerHand->isStand()) {
-                while ($dealerHand->getHandValue() < 17) {
-                    $dealerHand->addCard($deck->drawCard());
-                }
-                $dealerHand->stand();
-                $session->set('dealerHand', $dealerHand);
-                return $this->redirectToRoute('blackjack_winner');
-            }
+
+        if (checkIfStopped($session)) {
+            return $this->redirectToRoute('blackjack_winner');
         }
 
         return $this->render('project/blackjack.html.twig', [
@@ -336,4 +249,121 @@ class ProjectController extends AbstractController
 
         return $this->redirectToRoute('blackjack_bet');
     }
+}
+
+function createNewGame(SessionInterface $session): SessionInterface
+{
+    $deck = new DeckOfCards();
+    $deck->shuffle();
+    $playerHands = $session->get('playerHands', []);
+    $playerBets = $session->get('playerBets', []);
+
+    if (is_array($playerHands) && is_array($playerBets)) {
+        for ($i = 0; $i < $session->get('numPlayers'); $i++) {
+            $playerHands[$i]->addCard($deck->drawCard());
+            $playerHands[$i]->addCard($deck->drawCard());
+            $playerHands[$i]->setBet($playerBets[$i+1]);
+            $playerHands[$i]->updateTotalMoney(-$playerBets[$i+1]);
+        }
+    }
+
+    $dealerHand = new CardHand();
+    $dealerHand->addCard($deck->drawCard());
+
+    // Save the initial game state to the session
+    $session->set('deck', $deck);
+    $session->set('playerHands', $playerHands);
+    $session->set('dealerHand', $dealerHand);
+    $session->set('currentPlayer', 1); // Set the first player as the current player
+    return $session;
+}
+
+function checkPlayerAction(Request $request, SessionInterface $session): SessionInterface
+{
+    $formData = $request->request->all();
+    $playerHands = $session->get('playerHands', []);
+    $deck = $session->get('deck');
+    $currentPlayer = $session->get('currentPlayer');
+    $numPlayers = $session->get('numPlayers');
+    
+    if (isset($formData['playerIndex']) && isset($formData['action'])) {
+        $playerIndex = $formData['playerIndex'] - 1;
+        $action = $formData['action'];
+
+        if (is_array($playerHands) && isset($playerHands[(int)$playerIndex]) && $playerIndex === $session->get('currentPlayer') - 1) {
+            $playerHand = $playerHands[(int)$playerIndex];
+            if ($action === 'hit' && $playerHand instanceof CardHand) {
+                if ($deck instanceof DeckOfCards) {
+                    $playerHand->addCard($deck->drawCard());
+                }
+                if ($playerHand->isBust()) {
+                    // Move to the next player
+                    $playerHand->stand();
+                    $currentPlayer = $session->get('currentPlayer');
+                    $currentPlayer++;
+                    if ($currentPlayer > $numPlayers) {
+                        $currentPlayer = 1; // Start over from the first player
+                    }
+                    $session->set('currentPlayer', $currentPlayer);
+                }
+            }
+            if ($action === 'stand' && $playerHand instanceof CardHand) {
+                $playerHand->stand();
+
+                // Move to the next player
+                $currentPlayer = $session->get('currentPlayer');
+                $currentPlayer++;
+                if ($currentPlayer > $numPlayers) {
+                    $currentPlayer = 1; // Start over from the first player
+                }
+                $session->set('currentPlayer', $currentPlayer);
+            }
+
+            $session->set('playerHands', $playerHands);
+        }
+    }
+    return $session;
+}
+
+function checkIfStopped(SessionInterface $session): bool
+{
+    $playerHands = $session->get('playerHands', []);
+    $dealerHand = $session->get('dealerHand');
+    $deck = $session->get('deck');
+    if (is_iterable($playerHands) && $dealerHand instanceof CardHand) {
+        $allPlayersStood = true;
+        foreach ($playerHands as $playerHand) {
+            if ($playerHand instanceof CardHand && !$playerHand->isStand()) {
+                $allPlayersStood = false;
+                break;
+            }
+        }
+        if ($allPlayersStood && !$dealerHand->isStand() && $deck instanceof DeckOfCards) {
+            while ($dealerHand->getHandValue() < 17) {
+                $dealerHand->addCard($deck->drawCard());
+            }
+            $dealerHand->stand();
+            $session->set('dealerHand', $dealerHand);
+            return true;
+        }
+    }
+    return false;
+}
+
+function errorChecksGame(SessionInterface $session): string
+{
+    $playerBets = $session->get('playerBets', []);
+    if(empty($session->get('numPlayers'))) {
+        return 'proj_home';
+    }
+
+    if (!$session->has('betInProgress')) {
+        return 'blackjack_setup';
+    }
+
+    if (empty($playerBets)) {
+        return 'blackjack_bet';
+    }
+
+    return '';
 }
