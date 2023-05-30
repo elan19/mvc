@@ -1,38 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-  <testsuite name="" tests="20" assertions="28" errors="0" warnings="0" failures="0" skipped="0" time="0.066682">
-    <testsuite name="Project Test Suite" tests="20" assertions="28" errors="0" warnings="0" failures="0" skipped="0" time="0.066682">
-      <testsuite name="App\Card\CardGraphicTest" file="/home/elias/dbwebb-kurser/mvc/me/report/tests/Card/CardGraphicTest.php" tests="1" assertions="2" errors="0" warnings="0" failures="0" skipped="0" time="0.016100">
-        <testcase name="testCreateObject" class="App\Card\CardGraphicTest" classname="App.Card.CardGraphicTest" file="/home/elias/dbwebb-kurser/mvc/me/report/tests/Card/CardGraphicTest.php" line="15" assertions="2" time="0.016100"/>
+  <testsuite name="" tests="26" assertions="34" errors="0" warnings="0" failures="0" skipped="0" time="0.080803">
+    <testsuite name="Project Test Suite" tests="26" assertions="34" errors="0" warnings="0" failures="0" skipped="0" time="0.080803">
+      <testsuite name="App\Card\CardGraphicTest" file="/home/elias/dbwebb-kurser/mvc/me/report/tests/Card/CardGraphicTest.php" tests="1" assertions="2" errors="0" warnings="0" failures="0" skipped="0" time="0.016447">
+        <testcase name="testCreateObject" class="App\Card\CardGraphicTest" classname="App.Card.CardGraphicTest" file="/home/elias/dbwebb-kurser/mvc/me/report/tests/Card/CardGraphicTest.php" line="15" assertions="2" time="0.016447"/>
       </testsuite>
-      <testsuite name="App\Card\CardHandTest" file="/home/elias/dbwebb-kurser/mvc/me/report/tests/Card/CardHandTest.php" tests="2" assertions="5" errors="0" warnings="0" failures="0" skipped="0" time="0.002923">
-        <testcase name="testCreateObjectEmptyArguments" class="App\Card\CardHandTest" classname="App.Card.CardHandTest" file="/home/elias/dbwebb-kurser/mvc/me/report/tests/Card/CardHandTest.php" line="15" assertions="2" time="0.002187"/>
-        <testcase name="testAddCardGetValue" class="App\Card\CardHandTest" classname="App.Card.CardHandTest" file="/home/elias/dbwebb-kurser/mvc/me/report/tests/Card/CardHandTest.php" line="28" assertions="3" time="0.000735"/>
+      <testsuite name="App\Card\CardHandTest" file="/home/elias/dbwebb-kurser/mvc/me/report/tests/Card/CardHandTest.php" tests="8" assertions="11" errors="0" warnings="0" failures="0" skipped="0" time="0.019072">
+        <testcase name="testCreateObjectEmptyArguments" class="App\Card\CardHandTest" classname="App.Card.CardHandTest" file="/home/elias/dbwebb-kurser/mvc/me/report/tests/Card/CardHandTest.php" line="15" assertions="2" time="0.002218"/>
+        <testcase name="testAddCardGetValue" class="App\Card\CardHandTest" classname="App.Card.CardHandTest" file="/home/elias/dbwebb-kurser/mvc/me/report/tests/Card/CardHandTest.php" line="28" assertions="3" time="0.000887"/>
+        <testcase name="testisBust" class="App\Card\CardHandTest" classname="App.Card.CardHandTest" file="/home/elias/dbwebb-kurser/mvc/me/report/tests/Card/CardHandTest.php" line="50" assertions="1" time="0.000665"/>
+        <testcase name="testStandisStand" class="App\Card\CardHandTest" classname="App.Card.CardHandTest" file="/home/elias/dbwebb-kurser/mvc/me/report/tests/Card/CardHandTest.php" line="65" assertions="1" time="0.000581"/>
+        <testcase name="testGetSetBet" class="App\Card\CardHandTest" classname="App.Card.CardHandTest" file="/home/elias/dbwebb-kurser/mvc/me/report/tests/Card/CardHandTest.php" line="75" assertions="1" time="0.000663"/>
+        <testcase name="testgetTotalMoney" class="App\Card\CardHandTest" classname="App.Card.CardHandTest" file="/home/elias/dbwebb-kurser/mvc/me/report/tests/Card/CardHandTest.php" line="85" assertions="1" time="0.000555"/>
+        <testcase name="testupdateTotalMoney" class="App\Card\CardHandTest" classname="App.Card.CardHandTest" file="/home/elias/dbwebb-kurser/mvc/me/report/tests/Card/CardHandTest.php" line="94" assertions="1" time="0.000898"/>
+        <testcase name="testResetHand" class="App\Card\CardHandTest" classname="App.Card.CardHandTest" file="/home/elias/dbwebb-kurser/mvc/me/report/tests/Card/CardHandTest.php" line="104" assertions="1" time="0.012605"/>
       </testsuite>
-      <testsuite name="App\Card\CardTest" file="/home/elias/dbwebb-kurser/mvc/me/report/tests/Card/CardTest.php" tests="1" assertions="3" errors="0" warnings="0" failures="0" skipped="0" time="0.000531">
-        <testcase name="testCreateObject" class="App\Card\CardTest" classname="App.Card.CardTest" file="/home/elias/dbwebb-kurser/mvc/me/report/tests/Card/CardTest.php" line="15" assertions="3" time="0.000531"/>
+      <testsuite name="App\Card\CardTest" file="/home/elias/dbwebb-kurser/mvc/me/report/tests/Card/CardTest.php" tests="1" assertions="3" errors="0" warnings="0" failures="0" skipped="0" time="0.000552">
+        <testcase name="testCreateObject" class="App\Card\CardTest" classname="App.Card.CardTest" file="/home/elias/dbwebb-kurser/mvc/me/report/tests/Card/CardTest.php" line="15" assertions="3" time="0.000552"/>
       </testsuite>
-      <testsuite name="App\Card\DeckOfCardsTest" file="/home/elias/dbwebb-kurser/mvc/me/report/tests/Card/DeckOfCardsTest.php" tests="6" assertions="8" errors="0" warnings="0" failures="0" skipped="0" time="0.038123">
-        <testcase name="testCreateObjectEmptyArgument" class="App\Card\DeckOfCardsTest" classname="App.Card.DeckOfCardsTest" file="/home/elias/dbwebb-kurser/mvc/me/report/tests/Card/DeckOfCardsTest.php" line="17" assertions="1" time="0.002693"/>
-        <testcase name="testShuffle" class="App\Card\DeckOfCardsTest" classname="App.Card.DeckOfCardsTest" file="/home/elias/dbwebb-kurser/mvc/me/report/tests/Card/DeckOfCardsTest.php" line="26" assertions="1" time="0.024769"/>
-        <testcase name="testDeal" class="App\Card\DeckOfCardsTest" classname="App.Card.DeckOfCardsTest" file="/home/elias/dbwebb-kurser/mvc/me/report/tests/Card/DeckOfCardsTest.php" line="38" assertions="1" time="0.001926"/>
-        <testcase name="testGetCards" class="App\Card\DeckOfCardsTest" classname="App.Card.DeckOfCardsTest" file="/home/elias/dbwebb-kurser/mvc/me/report/tests/Card/DeckOfCardsTest.php" line="51" assertions="1" time="0.003752"/>
-        <testcase name="testCardsLeft" class="App\Card\DeckOfCardsTest" classname="App.Card.DeckOfCardsTest" file="/home/elias/dbwebb-kurser/mvc/me/report/tests/Card/DeckOfCardsTest.php" line="63" assertions="1" time="0.000950"/>
-        <testcase name="testDrawCard" class="App\Card\DeckOfCardsTest" classname="App.Card.DeckOfCardsTest" file="/home/elias/dbwebb-kurser/mvc/me/report/tests/Card/DeckOfCardsTest.php" line="74" assertions="3" time="0.004033"/>
+      <testsuite name="App\Card\DeckOfCardsTest" file="/home/elias/dbwebb-kurser/mvc/me/report/tests/Card/DeckOfCardsTest.php" tests="6" assertions="8" errors="0" warnings="0" failures="0" skipped="0" time="0.038239">
+        <testcase name="testCreateObjectEmptyArgument" class="App\Card\DeckOfCardsTest" classname="App.Card.DeckOfCardsTest" file="/home/elias/dbwebb-kurser/mvc/me/report/tests/Card/DeckOfCardsTest.php" line="17" assertions="1" time="0.002207"/>
+        <testcase name="testShuffle" class="App\Card\DeckOfCardsTest" classname="App.Card.DeckOfCardsTest" file="/home/elias/dbwebb-kurser/mvc/me/report/tests/Card/DeckOfCardsTest.php" line="26" assertions="1" time="0.024858"/>
+        <testcase name="testDeal" class="App\Card\DeckOfCardsTest" classname="App.Card.DeckOfCardsTest" file="/home/elias/dbwebb-kurser/mvc/me/report/tests/Card/DeckOfCardsTest.php" line="38" assertions="1" time="0.001544"/>
+        <testcase name="testGetCards" class="App\Card\DeckOfCardsTest" classname="App.Card.DeckOfCardsTest" file="/home/elias/dbwebb-kurser/mvc/me/report/tests/Card/DeckOfCardsTest.php" line="51" assertions="1" time="0.003956"/>
+        <testcase name="testCardsLeft" class="App\Card\DeckOfCardsTest" classname="App.Card.DeckOfCardsTest" file="/home/elias/dbwebb-kurser/mvc/me/report/tests/Card/DeckOfCardsTest.php" line="63" assertions="1" time="0.001286"/>
+        <testcase name="testDrawCard" class="App\Card\DeckOfCardsTest" classname="App.Card.DeckOfCardsTest" file="/home/elias/dbwebb-kurser/mvc/me/report/tests/Card/DeckOfCardsTest.php" line="74" assertions="3" time="0.004388"/>
       </testsuite>
-      <testsuite name="App\Entity\BookTest" file="/home/elias/dbwebb-kurser/mvc/me/report/tests/Entity/BookTest.php" tests="6" assertions="6" errors="0" warnings="0" failures="0" skipped="0" time="0.005426">
-        <testcase name="testCreateObject" class="App\Entity\BookTest" classname="App.Entity.BookTest" file="/home/elias/dbwebb-kurser/mvc/me/report/tests/Entity/BookTest.php" line="15" assertions="1" time="0.001582"/>
-        <testcase name="testGetSetTitle" class="App\Entity\BookTest" classname="App.Entity.BookTest" file="/home/elias/dbwebb-kurser/mvc/me/report/tests/Entity/BookTest.php" line="21" assertions="1" time="0.000868"/>
-        <testcase name="testGetSetISBN" class="App\Entity\BookTest" classname="App.Entity.BookTest" file="/home/elias/dbwebb-kurser/mvc/me/report/tests/Entity/BookTest.php" line="28" assertions="1" time="0.000791"/>
-        <testcase name="testGetSetAuthor" class="App\Entity\BookTest" classname="App.Entity.BookTest" file="/home/elias/dbwebb-kurser/mvc/me/report/tests/Entity/BookTest.php" line="35" assertions="1" time="0.000823"/>
-        <testcase name="testGetSetPicture" class="App\Entity\BookTest" classname="App.Entity.BookTest" file="/home/elias/dbwebb-kurser/mvc/me/report/tests/Entity/BookTest.php" line="42" assertions="1" time="0.000703"/>
-        <testcase name="testID" class="App\Entity\BookTest" classname="App.Entity.BookTest" file="/home/elias/dbwebb-kurser/mvc/me/report/tests/Entity/BookTest.php" line="49" assertions="1" time="0.000659"/>
+      <testsuite name="App\Entity\BookTest" file="/home/elias/dbwebb-kurser/mvc/me/report/tests/Entity/BookTest.php" tests="6" assertions="6" errors="0" warnings="0" failures="0" skipped="0" time="0.003775">
+        <testcase name="testCreateObject" class="App\Entity\BookTest" classname="App.Entity.BookTest" file="/home/elias/dbwebb-kurser/mvc/me/report/tests/Entity/BookTest.php" line="15" assertions="1" time="0.001121"/>
+        <testcase name="testGetSetTitle" class="App\Entity\BookTest" classname="App.Entity.BookTest" file="/home/elias/dbwebb-kurser/mvc/me/report/tests/Entity/BookTest.php" line="21" assertions="1" time="0.000548"/>
+        <testcase name="testGetSetISBN" class="App\Entity\BookTest" classname="App.Entity.BookTest" file="/home/elias/dbwebb-kurser/mvc/me/report/tests/Entity/BookTest.php" line="28" assertions="1" time="0.000514"/>
+        <testcase name="testGetSetAuthor" class="App\Entity\BookTest" classname="App.Entity.BookTest" file="/home/elias/dbwebb-kurser/mvc/me/report/tests/Entity/BookTest.php" line="35" assertions="1" time="0.000501"/>
+        <testcase name="testGetSetPicture" class="App\Entity\BookTest" classname="App.Entity.BookTest" file="/home/elias/dbwebb-kurser/mvc/me/report/tests/Entity/BookTest.php" line="42" assertions="1" time="0.000555"/>
+        <testcase name="testID" class="App\Entity\BookTest" classname="App.Entity.BookTest" file="/home/elias/dbwebb-kurser/mvc/me/report/tests/Entity/BookTest.php" line="49" assertions="1" time="0.000537"/>
       </testsuite>
-      <testsuite name="App\Entity\ProductTest" file="/home/elias/dbwebb-kurser/mvc/me/report/tests/Entity/ProductTest.php" tests="4" assertions="4" errors="0" warnings="0" failures="0" skipped="0" time="0.003579">
-        <testcase name="testCreateObject" class="App\Entity\ProductTest" classname="App.Entity.ProductTest" file="/home/elias/dbwebb-kurser/mvc/me/report/tests/Entity/ProductTest.php" line="15" assertions="1" time="0.001437"/>
-        <testcase name="testGetSetName" class="App\Entity\ProductTest" classname="App.Entity.ProductTest" file="/home/elias/dbwebb-kurser/mvc/me/report/tests/Entity/ProductTest.php" line="21" assertions="1" time="0.001072"/>
-        <testcase name="testGetSetValue" class="App\Entity\ProductTest" classname="App.Entity.ProductTest" file="/home/elias/dbwebb-kurser/mvc/me/report/tests/Entity/ProductTest.php" line="28" assertions="1" time="0.000563"/>
-        <testcase name="testID" class="App\Entity\ProductTest" classname="App.Entity.ProductTest" file="/home/elias/dbwebb-kurser/mvc/me/report/tests/Entity/ProductTest.php" line="35" assertions="1" time="0.000507"/>
+      <testsuite name="App\Entity\ProductTest" file="/home/elias/dbwebb-kurser/mvc/me/report/tests/Entity/ProductTest.php" tests="4" assertions="4" errors="0" warnings="0" failures="0" skipped="0" time="0.002718">
+        <testcase name="testCreateObject" class="App\Entity\ProductTest" classname="App.Entity.ProductTest" file="/home/elias/dbwebb-kurser/mvc/me/report/tests/Entity/ProductTest.php" line="15" assertions="1" time="0.001039"/>
+        <testcase name="testGetSetName" class="App\Entity\ProductTest" classname="App.Entity.ProductTest" file="/home/elias/dbwebb-kurser/mvc/me/report/tests/Entity/ProductTest.php" line="21" assertions="1" time="0.000535"/>
+        <testcase name="testGetSetValue" class="App\Entity\ProductTest" classname="App.Entity.ProductTest" file="/home/elias/dbwebb-kurser/mvc/me/report/tests/Entity/ProductTest.php" line="28" assertions="1" time="0.000626"/>
+        <testcase name="testID" class="App\Entity\ProductTest" classname="App.Entity.ProductTest" file="/home/elias/dbwebb-kurser/mvc/me/report/tests/Entity/ProductTest.php" line="35" assertions="1" time="0.000517"/>
       </testsuite>
     </testsuite>
   </testsuite>

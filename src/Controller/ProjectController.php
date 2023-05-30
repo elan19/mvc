@@ -26,7 +26,14 @@ class ProjectController extends AbstractController
             $session->set('gameInProgress', false);
         }
 
-        return $this->render('project/home.html.twig', ['game' => $session->get('gameInProgress')]);
+        if ($session->has('betInProgress') == false) {
+            $session->set('betInProgress', false);
+        }
+
+        return $this->render('project/home.html.twig', [
+            'game' => $session->get('gameInProgress'),
+            'bet' => $session->get('betInProgress'),
+        ]);
     }
 
 
@@ -51,8 +58,6 @@ class ProjectController extends AbstractController
             return $this->redirectToRoute('proj_home');
         }
 
-        $numPlayers = $session->get('numPlayers');
-
         return $this->render('project/setup.html.twig', [
             'numPlayers' => $numPlayers,
             'game' => $session->get('gameInProgress'),
@@ -67,6 +72,8 @@ class ProjectController extends AbstractController
         if($numPlayers == null) {
             return $this->redirectToRoute('proj_home');
         }
+
+        var_dump($session->get('gameInprogress'));
 
         if ($session->get('gameInProgress')) {
             return $this->redirectToRoute('blackjack_game');
@@ -105,9 +112,11 @@ class ProjectController extends AbstractController
             }
         }
 
-        if (!$session->has('betInProgress')) {
+        if (!$session->get('betInProgress')) {
             $session->set('betInProgress', true);
         }
+
+        var_dump($session->get('betInprogress'));
 
         return $this->render('project/bet.html.twig', [
             'numPlayers' => $numPlayers,
@@ -174,16 +183,9 @@ class ProjectController extends AbstractController
             if (is_array($playerHands) && is_array($playerBets)) {
                 for ($i = 0; $i < $numPlayers; $i++) {
                     $playerHands[$i]->addCard($deck->drawCard());
+                    $playerHands[$i]->addCard($deck->drawCard());
                     $playerHands[$i]->setBet($playerBets[$i+1]);
                     $playerHands[$i]->updateTotalMoney(-$playerBets[$i+1]);
-                }
-            }
-
-            if (is_array($playerHands)) {
-                for ($i = 0; $i < $numPlayers; $i++) {
-                    if (isset($playerHands[$i]) && $playerHands[$i] instanceof CardHand) {
-                        $playerHands[$i]->addCard($deck->drawCard());
-                    }
                 }
             }
 
@@ -206,26 +208,13 @@ class ProjectController extends AbstractController
 
                 if (is_array($playerHands) && isset($playerHands[(int)$playerIndex]) && $playerIndex === $session->get('currentPlayer') - 1) {
                     $playerHand = $playerHands[(int)$playerIndex];
-                    if ($playerHand instanceof CardHand) {
-                        if ($action === 'hit') {
-                            if ($deck instanceof DeckOfCards) {
-                                $playerHand->addCard($deck->drawCard());
-                            }
-                            if ($playerHand->isBust()) {
-                                // Move to the next player
-                                $playerHand->stand();
-                                $currentPlayer = $session->get('currentPlayer');
-                                $currentPlayer++;
-                                if ($currentPlayer > $numPlayers) {
-                                    $currentPlayer = 1; // Start over from the first player
-                                }
-                                $session->set('currentPlayer', $currentPlayer);
-                            }
+                    if ($action === 'hit' && $playerHand instanceof CardHand) {
+                        if ($deck instanceof DeckOfCards) {
+                            $playerHand->addCard($deck->drawCard());
                         }
-                        if ($action === 'stand') {
-                            $playerHand->stand();
-
+                        if ($playerHand->isBust()) {
                             // Move to the next player
+                            $playerHand->stand();
                             $currentPlayer = $session->get('currentPlayer');
                             $currentPlayer++;
                             if ($currentPlayer > $numPlayers) {
@@ -233,9 +222,20 @@ class ProjectController extends AbstractController
                             }
                             $session->set('currentPlayer', $currentPlayer);
                         }
-
-                        $session->set('playerHands', $playerHands);
                     }
+                    if ($action === 'stand' && $playerHand instanceof CardHand) {
+                        $playerHand->stand();
+
+                        // Move to the next player
+                        $currentPlayer = $session->get('currentPlayer');
+                        $currentPlayer++;
+                        if ($currentPlayer > $numPlayers) {
+                            $currentPlayer = 1; // Start over from the first player
+                        }
+                        $session->set('currentPlayer', $currentPlayer);
+                    }
+
+                    $session->set('playerHands', $playerHands);
                 }
             }
         }
@@ -279,26 +279,24 @@ class ProjectController extends AbstractController
         $winners = [];
         $losers = [];
 
-        if (is_iterable($playerHands) && is_iterable($playerNames) && is_array($playerHands) && is_array($playerNames)) {
+        if (is_iterable($playerHands) && is_iterable($playerNames) && isset($playerNames) && is_array($playerHands) && is_array($playerNames)) {
             for ($i = 0; $i < $numPlayers; $i++) {
                 $playerHand = $playerHands[$i];
                 if ($playerHand instanceof CardHand && $dealerHand instanceof CardHand) {
                     $playerHandValue = $playerHand->getHandValue();
                     $dealerHandValue = $dealerHand->getHandValue();
-                    if (isset($playerNames[$i])) {
-                        $playerName = $playerNames[$i];
-                        $bet = $playerHand->getBet();
+                    $playerName = $playerNames[$i];
+                    $bet = $playerHand->getBet();
 
-                        if ($playerHand->isBust() || ($dealerHandValue <= 21 && $playerHandValue < $dealerHandValue) || $playerHandValue > 21) {
-                            $losers[] = ['name' => $playerName, 'bet' => $bet];
-                        } elseif (($playerHandValue <= 21 && $dealerHandValue < $playerHandValue) || $dealerHandValue > 21) {
-                            $winners[] = ['name' => $playerName, 'bet' => $bet];
-                            $wonMoney = $bet * 1.5;
-                            //var_dump($playerHand);
-                            $playerHand->updateTotalMoney($wonMoney);
-                        } elseif (($playerHandValue == $dealerHandValue)) {
-                            $playerHand->updateTotalMoney($bet);
-                        }
+                    if ($playerHand->isBust() || ($dealerHandValue <= 21 && $playerHandValue < $dealerHandValue) || $playerHandValue > 21) {
+                        $losers[] = ['name' => $playerName, 'bet' => $bet];
+                    } elseif (($playerHandValue <= 21 && $dealerHandValue < $playerHandValue) || $dealerHandValue > 21) {
+                        $winners[] = ['name' => $playerName, 'bet' => $bet];
+                        $wonMoney = $bet * 1.5;
+                        //var_dump($playerHand);
+                        $playerHand->updateTotalMoney($wonMoney);
+                    } elseif (($playerHandValue == $dealerHandValue)) {
+                        $playerHand->updateTotalMoney($bet);
                     }
                 }
             }
@@ -345,5 +343,4 @@ class ProjectController extends AbstractController
         // Redirect back to the blackjack setup page
         return $this->redirectToRoute('blackjack_bet');
     }
-
 }

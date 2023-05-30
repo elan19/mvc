@@ -36,7 +36,7 @@
             </ul>
         </div>
 
-        {% if game == false %}
+        {% if game is same as(false) and bet is same as(false) %}
         
         <form method="post" action="{{ path('blackjack_setup') }}">
             <div class="home-setup">
@@ -47,9 +47,13 @@
             <button class="middle-btn setup-btn" type="submit">Setup</button>
         </form>
 
-        {% else %}
+        {% elseif game == true and bet == false %}
 
         <p>Game is already in progress, go back to the game: <a href="{{ path('blackjack_game') }}">Here</a></p>
+
+        {% else %}
+
+        <p>Game is already in setup, go back to the bet: <a href="{{ path('blackjack_bet') }}">Here</a></p>
 
         {% endif %}
     </div>
