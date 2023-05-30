@@ -73,8 +73,6 @@ class ProjectController extends AbstractController
             return $this->redirectToRoute('proj_home');
         }
 
-        var_dump($session->get('gameInprogress'));
-
         if ($session->get('gameInProgress')) {
             return $this->redirectToRoute('blackjack_game');
         }
@@ -115,8 +113,6 @@ class ProjectController extends AbstractController
         if (!$session->get('betInProgress')) {
             $session->set('betInProgress', true);
         }
-
-        var_dump($session->get('betInprogress'));
 
         return $this->render('project/bet.html.twig', [
             'numPlayers' => $numPlayers,
@@ -293,7 +289,6 @@ class ProjectController extends AbstractController
                     } elseif (($playerHandValue <= 21 && $dealerHandValue < $playerHandValue) || $dealerHandValue > 21) {
                         $winners[] = ['name' => $playerName, 'bet' => $bet];
                         $wonMoney = $bet * 1.5;
-                        //var_dump($playerHand);
                         $playerHand->updateTotalMoney($wonMoney);
                     } elseif (($playerHandValue == $dealerHandValue)) {
                         $playerHand->updateTotalMoney($bet);
