@@ -17,6 +17,32 @@ use Symfony\Component\Validator\Constraints\GreaterThanOrEqual;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
+function test(SessionInterface $session) {
+    $deck = new DeckOfCards();
+    $deck->shuffle();
+    $playerHands = $session->get('playerHands', []);
+    $playerBets = $session->get('playerBets', []);
+
+    if (is_array($playerHands) && is_array($playerBets)) {
+        for ($i = 0; $i < $session->get('numPlayers'); $i++) {
+            $playerHands[$i]->addCard($deck->drawCard());
+            $playerHands[$i]->addCard($deck->drawCard());
+            $playerHands[$i]->setBet($playerBets[$i+1]);
+            $playerHands[$i]->updateTotalMoney(-$playerBets[$i+1]);
+        }
+    }
+
+    $dealerHand = new CardHand();
+    $dealerHand->addCard($deck->drawCard());
+
+    // Save the initial game state to the session
+    $session->set('deck', $deck);
+    $session->set('playerHands', $playerHands);
+    $session->set('dealerHand', $dealerHand);
+    $session->set('currentPlayer', 1); // Set the first player as the current player
+    return $session;
+}
+
 class ProjectController extends AbstractController
 {
     #[Route("/proj", name: "proj_home")]
@@ -48,9 +74,7 @@ class ProjectController extends AbstractController
     {
         $numPlayers = $request->request->get('numPlayers');
 
-        // Check if the form is submitted and the number of players is valid
         if ($request->isMethod('POST') && $numPlayers >= 1 && $numPlayers <= 3) {
-            // Store the number of players in the session
             $session->set('numPlayers', $numPlayers);
         }
 
@@ -170,26 +194,7 @@ class ProjectController extends AbstractController
 
         // Initialize the game if the session data is not available
         if (!$deck || !$playerHands || !$dealerHand) {
-            $deck = new DeckOfCards();
-            $deck->shuffle();
-
-            if (is_array($playerHands) && is_array($playerBets)) {
-                for ($i = 0; $i < $numPlayers; $i++) {
-                    $playerHands[$i]->addCard($deck->drawCard());
-                    $playerHands[$i]->addCard($deck->drawCard());
-                    $playerHands[$i]->setBet($playerBets[$i+1]);
-                    $playerHands[$i]->updateTotalMoney(-$playerBets[$i+1]);
-                }
-            }
-
-            $dealerHand = new CardHand();
-            $dealerHand->addCard($deck->drawCard());
-
-            // Save the initial game state to the session
-            $session->set('deck', $deck);
-            $session->set('playerHands', $playerHands);
-            $session->set('dealerHand', $dealerHand);
-            $session->set('currentPlayer', 1); // Set the first player as the current player
+            $session = test($session);
         }
 
         // Process player actions
@@ -232,7 +237,8 @@ class ProjectController extends AbstractController
                 }
             }
         }
-
+        $dealerHand = $session->get('dealerHand');
+        $deck = $session->get('deck');
         // Process dealer's turn if all players have stood
         if (is_iterable($playerHands) && $dealerHand instanceof CardHand) {
             $allPlayersStood = true;
