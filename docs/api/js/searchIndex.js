@@ -741,6 +741,36 @@ Search.appendIndex(
             "summary": "",
             "url": "namespaces/app-controller.html#function_checkIfStopped"
         },                {
+            "fqsen": "\\App\\Controller\\errorChecksGame\u0028\u0029",
+            "name": "errorChecksGame",
+            "summary": "",
+            "url": "namespaces/app-controller.html#function_errorChecksGame"
+        },                {
+            "fqsen": "\\App\\Controller\\errorChecksBet\u0028\u0029",
+            "name": "errorChecksBet",
+            "summary": "",
+            "url": "namespaces/app-controller.html#function_errorChecksBet"
+        },                {
+            "fqsen": "\\App\\Controller\\dealerWon\u0028\u0029",
+            "name": "dealerWon",
+            "summary": "",
+            "url": "namespaces/app-controller.html#function_dealerWon"
+        },                {
+            "fqsen": "\\App\\Controller\\playerWon\u0028\u0029",
+            "name": "playerWon",
+            "summary": "",
+            "url": "namespaces/app-controller.html#function_playerWon"
+        },                {
+            "fqsen": "\\App\\Controller\\noWinner\u0028\u0029",
+            "name": "noWinner",
+            "summary": "",
+            "url": "namespaces/app-controller.html#function_noWinner"
+        },                {
+            "fqsen": "\\App\\Controller\\betRequest\u0028\u0029",
+            "name": "betRequest",
+            "summary": "",
+            "url": "namespaces/app-controller.html#function_betRequest"
+        },                {
             "fqsen": "\\App\\Controller\\ProjectController",
             "name": "ProjectController",
             "summary": "",

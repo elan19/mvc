@@ -109,9 +109,8 @@ class ProjectController extends AbstractController
         $numPlayers = $session->get('numPlayers');
 
         $deck = $session->get('deck');
-        $playerHands = $session->get('playerHands', []);
 
-        if ($request->isMethod('POST') && $request->request->has('betAmount1') && is_array($playerHands)) {
+        if (betRequest($session, $request) === true) {
             $playerBets = [];
             for ($i = 1; $i <= $numPlayers; $i++) {
                 $playerBet = $request->request->get("betAmount$i");
@@ -133,6 +132,7 @@ class ProjectController extends AbstractController
 
         $playerNames = $session->get('playerNames', []);
         $dealerHand = $session->get('dealerHand');
+        $playerHands = $session->get('playerHands', []);
 
         if (!$deck || !$playerHands || !$dealerHand) {
             $session = createNewGame($session);
@@ -170,16 +170,14 @@ class ProjectController extends AbstractController
         $dealerHand instanceof CardHand) {
             for ($i = 0; $i < $session->get('numPlayers'); $i++) {
                 $bet = $playerHands[$i]->getBet();
-
                 if (dealerWon($session, $playerHands[$i], $dealerHand) === true) {
                     $losers[] = ['name' => $playerNames[$i], 'bet' => $bet];
                 } elseif (playerWon($session, $playerHands[$i], $dealerHand) === true) {
                     $winners[] = ['name' => $playerNames[$i], 'bet' => $bet];
                     $wonMoney = $bet * 1.5;
                     $playerHands[$i]->updateTotalMoney($wonMoney);
-                } elseif ($playerHands[$i]->getHandValue() == $dealerHand->getHandValue()) {
-                    $playerHands[$i]->updateTotalMoney($bet);
                 }
+                noWinner($session, $playerHands[$i], $dealerHand);
             }
         }
 
@@ -342,9 +340,6 @@ function errorChecksGame(SessionInterface $session): string
 
 function errorChecksBet(SessionInterface $session): string
 {
-    if ($session->has('dealerHand')) {
-        $session->remove('dealerHand');
-    }
 
     if($session->get('numPlayers') == null) {
         return 'proj_home';
@@ -370,6 +365,10 @@ function errorChecksBet(SessionInterface $session): string
         return 'blackjack_game';
     }
 
+    if ($session->has('dealerHand')) {
+        $session->remove('dealerHand');
+    }
+
     return '';
 }
 
@@ -389,6 +388,25 @@ function playerWon(SessionInterface $session, CardHand $playerHand, CardHand $de
     $playerHandValue = $playerHand->getHandValue();
     $dealerHandValue = $dealerHand->getHandValue();
     if (($playerHandValue <= 21 && $dealerHandValue < $playerHandValue) || $dealerHandValue > 21)
+    {
+        return true;
+    }
+    return false;
+}
+
+function noWinner(SessionInterFace $session, CardHand $playerHand, CardHand $dealerHand): bool
+{
+    if ($playerHand->getHandValue() == $dealerHand->getHandValue()) {
+        $playerHand->updateTotalMoney($playerHand->getBet());
+        return true;
+    }
+    return false;
+}
+
+function betRequest(SessionInterFace $session, Request $request): bool
+{
+    $playerHands = $session->get('playerHands', []);
+    if ($request->isMethod('POST') && $request->request->has('betAmount1') && is_array($playerHands))
     {
         return true;
     }

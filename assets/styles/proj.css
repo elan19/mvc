@@ -105,6 +105,20 @@ button:hover {
     text-align: center;
 }
 
+.p-link {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.p-link a {
+    color: #eee;
+    text-decoration: none;
+}
+
+.p-link a:hover {
+    text-decoration: underline;
+}
+
 .back-to-bet {
     display: block;
     width: 10%;
