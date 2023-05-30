@@ -17,7 +17,7 @@
                     <a href="{{ path('add_money', {'playerIndex': loop.index - 1}) }}">Add Money</a>
                 {% endif %}
                 <label for="betAmount{{ i }}">Bet Amount:</label>
-                <input type="number" id="betAmount{{ i }}" name="betAmount{{ i }}" min="1" required>
+                <input type="number" id="betAmount{{ i }}" name="betAmount{{ i }}" min="1" max="{{ playerHands[loop.index - 1].getTotalMoney() }}" required>
                 <br><br>
                 </div>
             {% endfor %}

@@ -146,30 +146,27 @@ class ProjectController extends AbstractController
 
         if ($request->isMethod('POST') && $request->request->has('betAmount1')) {
             $playerBets = [];
-            if (is_array($playerBets) && is_array($playerHands)) {
+            if (is_array($playerHands)) {
                 for ($i = 1; $i <= $numPlayers; $i++) {
                     $playerBet = $request->request->get("betAmount$i");
                     $playerBets[$i] = $playerBet;
-                    if (($playerHands[$i-1]->getTotalMoney() - $playerBet) < 0) {
-                        return $this->redirectToRoute('blackjack_bet');
-                    }
                 }
                 $session->set('playerBets', $playerBets);
             }
         }
-        $playerNames = $session->get('playerNames', []);
         $playerBets = $session->get('playerBets', []);
 
         if (empty($playerBets)) {
             return $this->redirectToRoute('blackjack_bet');
         }
 
-        $dealerHand = $session->get('dealerHand');
-
         if ($session->get('gameInProgress') == false) {
             $session->set('gameInProgress', true);
             $session->set('betInProgress', false);
         }
+
+        $playerNames = $session->get('playerNames', []);
+        $dealerHand = $session->get('dealerHand');
 
         // Initialize the game if the session data is not available
         if (!$deck || !$playerHands || !$dealerHand) {
@@ -270,29 +267,26 @@ class ProjectController extends AbstractController
         $playerHands = $session->get('playerHands', []);
         $dealerHand = $session->get('dealerHand');
         $playerNames = $session->get('playerNames', []);
-        $numPlayers = $session->get('numPlayers');
 
         $winners = [];
         $losers = [];
 
-        if (is_iterable($playerHands) && is_iterable($playerNames) && isset($playerNames) && is_array($playerHands) && is_array($playerNames)) {
-            for ($i = 0; $i < $numPlayers; $i++) {
+        if (is_iterable($playerHands) && is_iterable($playerNames) && is_array($playerHands) && is_array($playerNames) && 
+        $dealerHand instanceof CardHand) {
+            $dealerHandValue = $dealerHand->getHandValue();
+            for ($i = 0; $i < $session->get('numPlayers'); $i++) {
                 $playerHand = $playerHands[$i];
-                if ($playerHand instanceof CardHand && $dealerHand instanceof CardHand) {
-                    $playerHandValue = $playerHand->getHandValue();
-                    $dealerHandValue = $dealerHand->getHandValue();
-                    $playerName = $playerNames[$i];
-                    $bet = $playerHand->getBet();
+                $playerHandValue = $playerHands[$i]->getHandValue();
+                $bet = $playerHands[$i]->getBet();
 
-                    if ($playerHand->isBust() || ($dealerHandValue <= 21 && $playerHandValue < $dealerHandValue) || $playerHandValue > 21) {
-                        $losers[] = ['name' => $playerName, 'bet' => $bet];
-                    } elseif (($playerHandValue <= 21 && $dealerHandValue < $playerHandValue) || $dealerHandValue > 21) {
-                        $winners[] = ['name' => $playerName, 'bet' => $bet];
-                        $wonMoney = $bet * 1.5;
-                        $playerHand->updateTotalMoney($wonMoney);
-                    } elseif (($playerHandValue == $dealerHandValue)) {
-                        $playerHand->updateTotalMoney($bet);
-                    }
+                if ($playerHands[$i]->isBust() || ($dealerHandValue <= 21 && $playerHandValue < $dealerHandValue) || $playerHandValue > 21) {
+                    $losers[] = ['name' => $playerNames[$i], 'bet' => $bet];
+                } elseif (($playerHandValue <= 21 && $dealerHandValue < $playerHandValue) || $dealerHandValue > 21) {
+                    $winners[] = ['name' => $playerNames[$i], 'bet' => $bet];
+                    $wonMoney = $bet * 1.5;
+                    $playerHands[$i]->updateTotalMoney($wonMoney);
+                } elseif (($playerHandValue == $dealerHandValue)) {
+                    $playerHands[$i]->updateTotalMoney($bet);
                 }
             }
         }
@@ -302,7 +296,6 @@ class ProjectController extends AbstractController
             $session->set('betInProgress', true);
         }
 
-        // Clear session data for the next round
         $session->remove('deck');
         $session->remove('currentPlayer');
         $session->remove('playerBets');
@@ -335,7 +328,6 @@ class ProjectController extends AbstractController
             }
         }
 
-        // Redirect back to the blackjack setup page
         return $this->redirectToRoute('blackjack_bet');
     }
 }
