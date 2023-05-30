@@ -4,16 +4,47 @@
 
 {% block body %}
     <div class="main">
-        <h1>PROOOOJECT HOME</h1>
+        <div class="content">
+            <h1>Rules</h1>
+            <p>
+                Blackjack hands are scored by their point total. The hand with the highest total wins as long as it doesn't exceed 21; 
+                a hand with a higher total than 21 is said to bust. Cards 2 through 10 are worth their face value, 
+                and face cards (jack, queen, king) are also worth 10. An ace's value is 11 unless this would cause the player to bust, 
+                in which case it is worth 1. A hand in which an ace's value is counted as 11 is called a soft hand, 
+                because it cannot be busted if the player draws another card.
+            </p>
+            <p>
+                The goal of each player is to beat the dealer by having the higher, unbusted hand.
+                If both the player and the dealer have the same point value, it is called a <span>"push"</span>, and neither player nor dealer wins the hand. 
+                Each player has an independent game with the dealer, so it is possible for the dealer to lose to one player, 
+                but still beat the other players in the same round.
+            </p>
 
-        <h2>Blackjack</h2>
+            <h2>The plays goes like this:</h2>
+            <ul>
+                <li>If the dealer has blackjack and the player doesn't, the player automatically loses.</li>
+                <li>If the player has blackjack and the dealer doesn't, the player automatically wins.</li>
+                <li>If both the player and dealer have blackjack then it's a push.</li>
+                <li>If neither side has blackjack, then each player plays out his hand, one at a time.</li>
+                <li>When all the players have finished the dealer plays his hand.</li>
+            </ul>
+
+            <h2>The player's options for playing his or her hand are:</h2>
+            <ul>
+                <li><span>Hit</span>: Take another card.</li>
+                <li><span>Stand</span>: Take no more cards.</li>
+            </ul>
+        </div>
 
         {% if game == false %}
-
+        
         <form method="post" action="{{ path('blackjack_setup') }}">
-            <label for="numPlayers">Number of Players:</label>
-            <input type="number" id="numPlayers" name="numPlayers" min="1" max="3" required>
-            <button type="submit">Setup</button>
+            <div class="home-setup">
+                <h2>Number of Players:</h2>
+                <!--<label for="numPlayers">Number of Players:</label>-->
+                <input type="number" id="numPlayers" name="numPlayers" min="1" max="3" required>
+            </div>
+            <button class="middle-btn setup-btn" type="submit">Setup</button>
         </form>
 
         {% else %}

@@ -4,19 +4,23 @@
 
 {% block body %}
     <div class="main">
-        <h1>Blackjack Setup</h1>
+        <h1>Blackjack - Setup</h1>
 
         {% if game == false %}
 
         <form method="POST" action="{{ path('blackjack_bet') }}">
+            <div class="test-container">
             {% for i in 1..numPlayers %}
-                <h2>Player {{ i }}</h2>
-                <label for="playerName{{ i }}">Player Name:</label>
-                <input type="text" id="playerName{{ i }}" name="playerName{{ i }}" required>
-                <br><br>
+                <div class="test">
+                    <h2>Player {{ i }}</h2>
+                    <label for="playerName{{ i }}">Player Name:</label>
+                    <input type="text" id="playerName{{ i }}" name="playerName{{ i }}" required>
+                    <br><br>
+                </div>
             {% endfor %}
+            </div>
 
-            <button type="submit">Continue</button>
+            <button class="middle-btn" type="submit">Continue</button>
         </form>
 
         {% else %}

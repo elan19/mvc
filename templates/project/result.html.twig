@@ -5,44 +5,53 @@
 {% block body %}
     <h1>Blackjack - Winners</h1>
 
-    <h2>Dealer's Hand</h2>
-    <p>Hand Value: {{ dealerHand.getHandValue() }}</p>
-    <p>
-        {% for card in dealerHand.getCards() %}
-            {{ card.getSymbol() }}
-        {% endfor %}
-    </p>
-
-    <h2>Winners</h2>
-    {% if winners|length > 0 %}
-        {% for winner in winners %}
-            <p>Player '{{ winner.name }}' won ${{ winner.bet * 1.5 }}! Bet: ${{ winner.bet }}</p>
-        {% endfor %}
-    {% else %}
-        <p>No winners this round.</p>
-    {% endif %}
-
-    <h2>Losers</h2>
-    {% if losers|length > 0 %}
-        {% for loser in losers %}
-            <p>Player {{ loser.name }} lost. Bet: ${{ loser.bet }}</p>
-        {% endfor %}
-    {% else %}
-        <p>No losers this round.</p>
-    {% endif %}
-
-    <hr>
-
-    {% for playerHand in playerHands %}
-        <h2>Player {{ playerNames[loop.index - 1] }} - Total money: ${{ playerHand.getTotalMoney() }}</h2>
-        <p>Hand Value: {{ playerHand.getHandValue() }}</p>
-        <p>
-            {% for card in playerHand.getCards() %}
+    <div class="dealer">
+        <h2>Dealer's Hand</h2>
+        <p>Hand Value: {{ dealerHand.getHandValue() }}</p>
+        <p class="card">
+            {% for card in dealerHand.getCards() %}
                 {{ card.getSymbol() }}
             {% endfor %}
         </p>
-        <hr>
-    {% endfor %}
+    </div>
 
-    <a href="{{ path('blackjack_bet') }}">Start a new round</a>
+    <div class="test-container">
+        <div class="test fifty-margin-top no-margin-bottom">
+            <h2>Winners</h2>
+            {% if winners|length > 0 %}
+                {% for winner in winners %}
+                    <p>Player '{{ winner.name }}' won ${{ winner.bet * 1.5 }}! Bet: ${{ winner.bet }}</p>
+                {% endfor %}
+            {% else %}
+                <p>No winners this round.</p>
+            {% endif %}
+        </div>
+
+        <div class="test fifty-margin-top no-margin-bottom">
+            <h2>Losers</h2>
+            {% if losers|length > 0 %}
+                {% for loser in losers %}
+                    <p>Player '{{ loser.name }}'' lost. Bet: ${{ loser.bet }}</p>
+                {% endfor %}
+            {% else %}
+                <p>No losers this round.</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="test-container">
+    {% for playerHand in playerHands %}
+        <div class="test fifty-margin-top no-margin-bottom">
+            <h2>Player {{ playerNames[loop.index - 1] }} - Total money: ${{ playerHand.getTotalMoney() }}</h2>
+            <p>Hand Value: {{ playerHand.getHandValue() }}</p>
+            <p class="card">
+                {% for card in playerHand.getCards() %}
+                    {{ card.getSymbol() }}
+                {% endfor %}
+            </p>
+        </div>
+    {% endfor %}
+    </div>
+
+    <a class="back-to-bet" href="{{ path('blackjack_bet') }}">Start a new round</a>
 {% endblock %}

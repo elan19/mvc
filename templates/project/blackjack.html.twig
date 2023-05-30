@@ -18,8 +18,9 @@
 
         {% set currentPlayer = session.get('currentPlayer', 1) %}
 
+        <div class="test-container">
         {% for playerHand in playerHands %}
-        <div class="player">
+        <div class="test">
             <h2>Player {{ playerNames[loop.index - 1] }} - Total money: ${{ playerHand.getTotalMoney() }}</h2>
             <h2>Bet: ${{ playerHand.getBet() }}</h2>
             <p>Hand Value: <span>{{ playerHand.getHandValue() }}</span></p>
@@ -42,5 +43,6 @@
             {% endif %}
         </div>
         {% endfor %}
+        </div>
     </div>
 {% endblock %}

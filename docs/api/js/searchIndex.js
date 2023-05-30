@@ -71,10 +71,60 @@ Search.appendIndex(
             "summary": "Calculates\u0020the\u0020value\u0020of\u0020the\u0020hand\u0020according\u0020to\u0020the\u0020rules\u0020of\u0020blackjack.",
             "url": "classes/App-Card-CardHand.html#method_getHandValue"
         },                {
+            "fqsen": "\\App\\Card\\CardHand\u003A\u003AisBust\u0028\u0029",
+            "name": "isBust",
+            "summary": "Checks\u0020if\u0020the\u0020hand\u0020is\u0020bust\u0020\u0028hand\u0020value\u0020exceeds\u002021\u0029.",
+            "url": "classes/App-Card-CardHand.html#method_isBust"
+        },                {
+            "fqsen": "\\App\\Card\\CardHand\u003A\u003A\u0024stand",
+            "name": "stand",
+            "summary": "",
+            "url": "classes/App-Card-CardHand.html#property_stand"
+        },                {
+            "fqsen": "\\App\\Card\\CardHand\u003A\u003AisStand\u0028\u0029",
+            "name": "isStand",
+            "summary": "",
+            "url": "classes/App-Card-CardHand.html#method_isStand"
+        },                {
+            "fqsen": "\\App\\Card\\CardHand\u003A\u003AgetBet\u0028\u0029",
+            "name": "getBet",
+            "summary": "",
+            "url": "classes/App-Card-CardHand.html#method_getBet"
+        },                {
+            "fqsen": "\\App\\Card\\CardHand\u003A\u003AsetBet\u0028\u0029",
+            "name": "setBet",
+            "summary": "",
+            "url": "classes/App-Card-CardHand.html#method_setBet"
+        },                {
+            "fqsen": "\\App\\Card\\CardHand\u003A\u003AgetTotalMoney\u0028\u0029",
+            "name": "getTotalMoney",
+            "summary": "",
+            "url": "classes/App-Card-CardHand.html#method_getTotalMoney"
+        },                {
+            "fqsen": "\\App\\Card\\CardHand\u003A\u003AupdateTotalMoney\u0028\u0029",
+            "name": "updateTotalMoney",
+            "summary": "",
+            "url": "classes/App-Card-CardHand.html#method_updateTotalMoney"
+        },                {
+            "fqsen": "\\App\\Card\\CardHand\u003A\u003AresetHand\u0028\u0029",
+            "name": "resetHand",
+            "summary": "",
+            "url": "classes/App-Card-CardHand.html#method_resetHand"
+        },                {
             "fqsen": "\\App\\Card\\CardHand\u003A\u003A\u0024cards",
             "name": "cards",
             "summary": "An\u0020array\u0020of\u0020CardGraphic\u0020objects\u0020representing\u0020the\u0020cards\u0020in\u0020the\u0020hand.",
             "url": "classes/App-Card-CardHand.html#property_cards"
+        },                {
+            "fqsen": "\\App\\Card\\CardHand\u003A\u003A\u0024bet",
+            "name": "bet",
+            "summary": "",
+            "url": "classes/App-Card-CardHand.html#property_bet"
+        },                {
+            "fqsen": "\\App\\Card\\CardHand\u003A\u003A\u0024totalMoney",
+            "name": "totalMoney",
+            "summary": "",
+            "url": "classes/App-Card-CardHand.html#property_totalMoney"
         },                {
             "fqsen": "\\App\\Card\\DeckOfCards",
             "name": "DeckOfCards",
@@ -675,6 +725,56 @@ Search.appendIndex(
             "name": "remove",
             "summary": "",
             "url": "classes/App-Repository-ProductRepository.html#method_remove"
+        },                {
+            "fqsen": "\\App\\Controller\\ProjectController",
+            "name": "ProjectController",
+            "summary": "",
+            "url": "classes/App-Controller-ProjectController.html"
+        },                {
+            "fqsen": "\\App\\Controller\\ProjectController\u003A\u003Ahome\u0028\u0029",
+            "name": "home",
+            "summary": "",
+            "url": "classes/App-Controller-ProjectController.html#method_home"
+        },                {
+            "fqsen": "\\App\\Controller\\ProjectController\u003A\u003Aabout\u0028\u0029",
+            "name": "about",
+            "summary": "",
+            "url": "classes/App-Controller-ProjectController.html#method_about"
+        },                {
+            "fqsen": "\\App\\Controller\\ProjectController\u003A\u003AblackjackSetup\u0028\u0029",
+            "name": "blackjackSetup",
+            "summary": "",
+            "url": "classes/App-Controller-ProjectController.html#method_blackjackSetup"
+        },                {
+            "fqsen": "\\App\\Controller\\ProjectController\u003A\u003AblackjackBet\u0028\u0029",
+            "name": "blackjackBet",
+            "summary": "",
+            "url": "classes/App-Controller-ProjectController.html#method_blackjackBet"
+        },                {
+            "fqsen": "\\App\\Controller\\ProjectController\u003A\u003Ablackjack_solo\u0028\u0029",
+            "name": "blackjack_solo",
+            "summary": "",
+            "url": "classes/App-Controller-ProjectController.html#method_blackjack_solo"
+        },                {
+            "fqsen": "\\App\\Controller\\ProjectController\u003A\u003Ablackjack\u0028\u0029",
+            "name": "blackjack",
+            "summary": "",
+            "url": "classes/App-Controller-ProjectController.html#method_blackjack"
+        },                {
+            "fqsen": "\\App\\Controller\\ProjectController\u003A\u003AblackjackWinner\u0028\u0029",
+            "name": "blackjackWinner",
+            "summary": "",
+            "url": "classes/App-Controller-ProjectController.html#method_blackjackWinner"
+        },                {
+            "fqsen": "\\App\\Controller\\ProjectController\u003A\u003Areset\u0028\u0029",
+            "name": "reset",
+            "summary": "",
+            "url": "classes/App-Controller-ProjectController.html#method_reset"
+        },                {
+            "fqsen": "\\App\\Controller\\ProjectController\u003A\u003AaddMoney\u0028\u0029",
+            "name": "addMoney",
+            "summary": "",
+            "url": "classes/App-Controller-ProjectController.html#method_addMoney"
         },                {
             "fqsen": "\\",
             "name": "\\",

@@ -22,29 +22,9 @@ class ProjectController extends AbstractController
     #[Route("/proj", name: "proj_home")]
     public function home(Request $request, SessionInterface $session): Response
     {
-        /*$form = $this->createFormBuilder()
-            ->add('numPlayers', IntegerType::class, [
-                'label' => 'Number of Players:',
-                'constraints' => [
-                    new NotBlank(),
-                    new GreaterThanOrEqual(1),
-                    new LessThanOrEqual(3),
-                ],
-            ])
-            ->add('startGame', SubmitType::class, ['label' => 'Start Game'])
-            ->getForm();
-
-        $form->handleRequest($request);*/
         if ($session->has('gameInProgress') == false) {
             $session->set('gameInProgress', false);
         }
-
-        /*if ($form->isSubmitted() && $form->isValid()) {
-            $numPlayers = $form->getData()['numPlayers'];
-            var_dump("hej");
-            // Redirect to the blackjack route with the number of players
-            //return $this->redirectToRoute('blackjack_setup', ['numPlayers' => $numPlayers]);
-        }*/
 
         return $this->render('project/home.html.twig', ['game' => $session->get('gameInProgress')]);
     }
@@ -72,8 +52,6 @@ class ProjectController extends AbstractController
         }
 
         $numPlayers = $session->get('numPlayers');
-            // Redirect to the blackjack route
-            //return $this->redirectToRoute('blackjack', ['numPlayers' => (int)$numPlayers]);
 
         return $this->render('project/setup.html.twig', [
             'numPlayers' => $numPlayers,
@@ -161,10 +139,6 @@ class ProjectController extends AbstractController
         $deck = $session->get('deck');
         $playerHands = $session->get('playerHands', []);
 
-        /*if(!$playerHands) {
-            return $this->redirectToRoute('blackjack_setup');
-        }*/
-
         if ($request->isMethod('POST') && $request->request->has('betAmount1')) {
             $playerBets = [];
             if (is_array($playerBets) && is_array($playerHands)) {
@@ -184,8 +158,6 @@ class ProjectController extends AbstractController
         if (empty($playerBets)) {
             return $this->redirectToRoute('blackjack_bet');
         }
-
-        //var_dump($playerHands);
 
         $dealerHand = $session->get('dealerHand');
 
@@ -286,7 +258,6 @@ class ProjectController extends AbstractController
                 return $this->redirectToRoute('blackjack_winner');
             }
         }
-        
 
         return $this->render('project/blackjack.html.twig', [
             'numPlayers' => $numPlayers,
@@ -340,12 +311,8 @@ class ProjectController extends AbstractController
 
         // Clear session data for the next round
         $session->remove('deck');
-        //$session->remove('playerHands');
-        //$session->remove('dealerHand');
         $session->remove('currentPlayer');
         $session->remove('playerBets');
-        //$session->remove('gameInProgress');
-        //$session->remove('betInProgress');
 
         return $this->render('project/result.html.twig', [
             'winners' => $winners,
@@ -361,6 +328,22 @@ class ProjectController extends AbstractController
     {
         $session->clear();
         return $this->redirectToRoute('proj_home');
+    }
+
+    #[Route("/proj/add/{playerIndex}", name: "add_money")]
+    public function addMoney(int $playerIndex, SessionInterface $session): Response
+    {
+        $playerHands = $session->get('playerHands', []);
+
+        if(is_array($playerHands)) {
+            $playerHand = $playerHands[$playerIndex];
+            if($playerHand instanceof CardHand) {
+                $playerHand->updateTotalMoney(25);
+            }
+        }
+
+        // Redirect back to the blackjack setup page
+        return $this->redirectToRoute('blackjack_bet');
     }
 
 }

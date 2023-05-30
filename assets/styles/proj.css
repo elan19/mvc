@@ -7,13 +7,13 @@ body {
 }
 
 .main {
-    min-height: 800px;
+    min-height: 750px;
     width: 100%;
 }
 
 h1 {
     text-align: center;
-    margin-bottom: 20px;
+    text-decoration: underline;
 }
 
 p {
@@ -42,6 +42,7 @@ button {
     border-radius: 4px;
     color: #fff;
     cursor: pointer;
+    margin-bottom: 10px;
 }
 
 button:hover {
@@ -52,17 +53,79 @@ button:hover {
     width: 33%;
     display: block;
     float: left;
-    margin-top: 200px;
+    margin-top: 250px;
     border: 1px solid black;
     min-height: 125px;
     margin-bottom: 50px;
     text-align: center;
 }
 
+.test-container {
+    display: flex;
+    justify-content: center;
+}
+
+.fifty-margin-top {
+    margin-top: 50px;
+}
+
+.no-margin-bottom {
+    margin-bottom: 0;
+}
+
 .middle-btn {
     width: 10%;
     display: block;
     margin: 0 auto;
+}
+
+.setup-btn {
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+.home-setup {
+    display: block;
+    text-align: center;
+}
+
+.content {
+    width: 40%;
+    margin-left: 30%;
+    border-bottom: 2px solid #003916;
+}
+
+.content h1 {
+    text-align: center;
+    text-decoration: none;
+    border-bottom: 2px solid #003916;
+}
+
+.content h2 {
+    text-align: center;
+}
+
+.back-to-bet {
+    display: block;
+    width: 10%;
+    height: 50px;
+    background-color: #007bff;
+    text-align: center;
+    line-height: 50px;
+    text-decoration: none;
+    margin: 50px auto;
+    border-radius: 10px;
+}
+
+.back-to-bet:hover {
+    background-color: #0056b3;
+}
+
+input {
+    height: 30px;
+    background-color: #ccc;
+    border: none;
+    border-radius: 5px;
 }
 
 .waiting {
@@ -83,13 +146,15 @@ button:hover {
 
 .dealer {
     width: 35%;
-    min-height: 250px;
+    min-height: 150px;
     text-align: center;
     margin-left: 32.5%;
     margin-right: 32.5%;
-    margin-bottom: 200px;
     outline: 1px solid black;
-    float: left;
+}
+
+.dealer h2 {
+    padding-top: 10px;
 }
 
 span {
@@ -123,7 +188,7 @@ nav li {
     margin: 0 10px;
 }
 
-nav a {
+nav ul li a {
     text-decoration: none;
     color: #eee;
     font-size: 18px;
@@ -132,6 +197,11 @@ nav a {
 
 nav a:hover {
     text-decoration: underline;
+}
+
+nav img {
+    width: 100px;
+    margin-top: 10px;
 }
 
 footer {
